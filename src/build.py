@@ -49,6 +49,10 @@ UI = {
         "page": "صفحة الأداة", "source": "المصدر", "guide": "الدليل", "stamp": "قريباً",
         "share": "شارك الأداة", "share_x": "انشرها في X", "opinion": "شاركني رأيك", "copied": "نُسخ الرابط",
         "share_text": "{name} — {tag}", "opinion_text": "@ALDoraibi رأيي في «{name}»: ",
+        "share_site_h": "تعرف أحداً تفيده هذه الأدوات؟", "share_site_p": "أرسل له الموقع، فكل مشاركة تساعدني أصنع أدوات أكثر.",
+        "share_site": "شارك الموقع", "share_site_x": "انشره في X",
+        "share_site_text": "أدوات عربية صغيرة ومتقنة للماك والويب، من @ALDoraibi",
+        "suggest_link": "أو اقترح أداة للماك تتمنى أن أصنعها",
         "suggest_h": "عندك فكرة أداة للماك؟", "suggest_p": "اكتب لي أداة الماك التي تتمنى أن أصنعها، وأقرأ كل اقتراح.",
         "suggest": "اقترح أداة", "suggest_text": "@ALDoraibi أتمنى أداة للماك: ",
         "visits": "زيارات الموقع",
@@ -77,6 +81,10 @@ UI = {
         "page": "Tool page", "source": "Source", "guide": "Guide (Arabic)", "stamp": "SOON",
         "share": "Share this tool", "share_x": "Post on X", "opinion": "Tell me what you think", "copied": "Link copied",
         "share_text": "{name} — {tag}", "opinion_text": "@ALDoraibi My take on {name}: ",
+        "share_site_h": "Know someone these tools would help?", "share_site_p": "Send them the site — every share helps me build more.",
+        "share_site": "Share the site", "share_site_x": "Post on X",
+        "share_site_text": "Small, carefully made Arabic tools for Mac and the web, by @ALDoraibi",
+        "suggest_link": "Or suggest a Mac tool you wish I’d build",
         "suggest_h": "Got an idea for a Mac tool?", "suggest_p": "Tell me the Mac tool you wish I’d build — I read every suggestion.",
         "suggest": "Suggest a tool", "suggest_text": "@ALDoraibi I wish there was a Mac tool that ",
         "visits": "Site visits",
@@ -246,9 +254,14 @@ def page_home(lang):
 <main id="main" class="wrap">
 <h2 class="sr">{u['tools']}</h2>
 {chr(10).join(groups)}
-<section class="suggest reveal" aria-labelledby="g-suggest">
-  <div><h2 id="g-suggest">{u['suggest_h']}</h2><p>{u['suggest_p']}</p></div>
-  <a class="btn btn-primary" data-gc="suggest" href="{e(x_intent(u['suggest_text']))}">{IC['bulb']}<span>{u['suggest']}</span></a>
+<section class="suggest reveal" aria-labelledby="g-share-site">
+  <div><h2 id="g-share-site">{u['share_site_h']}</h2><p>{u['share_site_p']}</p>
+    <p class="suggest-link"><a data-gc="suggest" href="{e(x_intent(u['suggest_text']))}">{IC['bulb']}<span>{u['suggest_link']}</span></a></p></div>
+  <div class="suggest-actions">
+    <button type="button" class="btn btn-primary js-share" data-gc="share-site" data-title="{e(u['title'])}" data-text="{e(u['share_site_text'])}" data-url="{SITE}{home_url(lang)}" data-copied="{e(u['copied'])}">{IC['share']}<span>{u['share_site']}</span></button>
+    <a class="btn btn-glass" data-gc="x-share-site" href="{e(x_intent(u['share_site_text'], SITE + home_url(lang)))}"><span>{u['share_site_x']}</span></a>
+    <span class="share-status" role="status" aria-live="polite"></span>
+  </div>
 </section>
 <section class="group" aria-labelledby="g-principles">
   <div class="group-head"><h2 id="g-principles">{u['principles']}</h2></div>
