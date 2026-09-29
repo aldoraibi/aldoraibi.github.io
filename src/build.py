@@ -44,7 +44,7 @@ UI = {
         "status": {"available": "متاح", "pending": "التحميل قريباً", "soon": "قريباً"},
         "more": "التفاصيل والتحميل", "more_soon": "التفاصيل",
         "back": "كل الأدوات", "download": "حمّل", "try": "جرّبه في المتصفح", "open": "افتحه",
-        "page": "صفحة الأداة", "source": "المصدر",
+        "page": "صفحة الأداة", "source": "المصدر", "guide": "الدليل",
         "direct": "رابط مباشر لأحدث إصدار من GitHub.",
         "pending_note": "الأداة جاهزة وأستخدمها يومياً، ورابط تحميلها يُنشر قريباً.",
         "soon_note": "قيد التطوير، وتُعلن هنا حين تصدر.",
@@ -68,7 +68,7 @@ UI = {
         "status": {"available": "Available", "pending": "Download soon", "soon": "Coming soon"},
         "more": "Details & download", "more_soon": "Details",
         "back": "All tools", "download": "Download", "try": "Try it in the browser", "open": "Open it",
-        "page": "Tool page", "source": "Source",
+        "page": "Tool page", "source": "Source", "guide": "Guide (Arabic)",
         "direct": "Direct link to the latest release on GitHub.",
         "pending_note": "The app is finished and in my daily use; its download link is coming soon.",
         "soon_note": "In development — it will be announced here on release.",
@@ -81,6 +81,7 @@ UI = {
 
 # أيقونات خطية صغيرة (مسارات بسيطة، بلا شعارات شركات)
 IC = {
+    "book": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3.5h4a1.5 1.5 0 0 1 1 .5 1.5 1.5 0 0 1 1-.5h4v9H9a1 1 0 0 0-1 .5 1 1 0 0 0-1-.5H3z M8 4v8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
     "arrow": '<svg class="flip-rtl" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "back": '<svg class="flip-rtl" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13 8H3M7 4L3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "down": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2v8M4.5 6.8 8 10.3l3.5-3.5M3 13.5h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -250,6 +251,9 @@ def page_tool(lang, slug):
         btns.append(f'<a class="btn {cls}" href="{t["try"]}">{IC["ext"]}<span>{label}</span></a>')
     if t.get("page"):
         btns.append(f'<a class="btn btn-glass" href="{t["page"]}">{IC["ext"]}<span>{u["page"]}</span></a>')
+    if t.get("guide"):
+        btns.append(f'<a class="btn btn-glass" href="{t["guide"]}"' + (' hreflang="ar"' if lang == "en" else "")
+                    + f'>{IC["book"]}<span>{u["guide"]}</span></a>')
     if t.get("source"):
         btns.append(f'<a class="btn btn-glass" href="{t["source"]}">{IC["code"]}<span>{u["source"]}</span></a>')
     if btns:
@@ -269,6 +273,8 @@ def page_tool(lang, slug):
     if d.get("install"):
         steps = "".join(f"<li>{e(s)}</li>" for s in d["install"])
         main_col += f'<section><h2>{d.get("install_title", u["install"])}</h2><ol class="steps">{steps}</ol></section>'
+    for sec_title, sec_html in d.get("extra", []):
+        main_col += f'<section><h2>{e(sec_title)}</h2><p>{sec_html}</p></section>'
 
     # بقية الأدوات من المجموعة نفسها
     grp = next(g for g in GROUPS if slug in g["tools"])

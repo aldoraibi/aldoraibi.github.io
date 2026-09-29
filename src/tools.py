@@ -344,6 +344,7 @@ TOOLS = {
         "status": "available",
         "download": None,
         "try": "https://aldoraibi.github.io/fikra/",
+        "guide": "https://aldoraibi.github.io/fikra/guide/",
         "source": f"{GH}/fikra",
         "ar": {
             "name": "فكرة",
@@ -365,10 +366,11 @@ TOOLS = {
             "req": [("المنصة", "أي جوال أو حاسب بمتصفح حديث")],
             "install_title": "التثبيت على جوالك",
             "install": [
-                "آيفون وآيباد: افتح الرابط في سفاري ← زر المشاركة ← «إضافة إلى الشاشة الرئيسية».",
+                "آيفون وآيباد: افتح الرابط في سفاري ← النقاط الثلاث ⋯ ← «مشاركة» ← «إضافة إلى الشاشة الرئيسية».",
                 "أندرويد: افتح الرابط في كروم ← قائمة المتصفح ← «تثبيت التطبيق».",
                 "التطبيق المثبّت يحفظ بياناتك بشكل دائم ويعمل دون اتصال.",
             ],
+            "extra": [("الربط بالتقويم و«التذكيرات»", '«جدولة» تضيف الفكرة إلى تقويمك، واختصار صغير تنشئه مرة واحدة يرسل كل فكرة إلى «التذكيرات»، ومع «روتين» على الماك تُوزَّع أفكارك على أيامك تلقائياً. الخطوات كاملة في <a href="https://aldoraibi.github.io/fikra/guide/">الدليل</a>.')],
         },
         "en": {
             "name": "Fikra",
@@ -390,10 +392,11 @@ TOOLS = {
             "req": [("Platform", "Any phone or computer with a modern browser")],
             "install_title": "Install on your phone",
             "install": [
-                "iPhone & iPad: open the link in Safari → Share → “Add to Home Screen”.",
+                "iPhone & iPad: open the link in Safari → the ⋯ button → Share → “Add to Home Screen”.",
                 "Android: open the link in Chrome → browser menu → “Install app”.",
                 "Installed, it keeps your data permanently and works offline.",
             ],
+            "extra": [("Calendar & Reminders", '“Schedule” adds an idea to your calendar; a small shortcut you create once sends every idea to Reminders; and with Routine on the Mac, ideas get spread across your days automatically. Step by step in the <a href="https://aldoraibi.github.io/fikra/guide/" hreflang="ar">guide (Arabic)</a>.')],
         },
     },
     # ——————————————————————————————— صندوق الأفكار
