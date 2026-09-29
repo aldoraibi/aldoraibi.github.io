@@ -7,6 +7,7 @@
 """
 import html
 import os
+import re
 from pathlib import Path
 
 from tools import GROUPS, TOOLS, X_URL, GH
@@ -14,8 +15,17 @@ from tools import GROUPS, TOOLS, X_URL, GH
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(__file__).resolve().parent
 SITE = "https://aldoraibi.github.io"
-LOGO = (SRC / "logo.svg").read_text().replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
-SIG = (SRC / "signature.svg").read_text()
+
+
+def inline_svg(name):
+    """يقرأ SVG ليُضمَّن داخل الصفحة، دون كتلة البيانات الوصفية (metadata) التي قد تُضاف للملف أثناء النقل."""
+    s = (SRC / name).read_text()
+    s = re.sub(r"<metadata>.*?</metadata>", "", s, flags=re.S)
+    return re.sub(r'\s+xmlns:c2pa="[^"]*"', "", s).strip()
+
+
+LOGO = inline_svg("logo.svg").replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
+SIG = inline_svg("signature.svg")
 e = html.escape
 
 UI = {
