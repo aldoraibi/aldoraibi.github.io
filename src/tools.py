@@ -293,10 +293,11 @@ TOOLS = {
     "mulaqqin": {
         "icon": "mulaqqin.webp",
         "status": "available",
-        "download": f"{GH}/mulaqqin/releases/latest/download/Mulaqqin-mac.zip",
+        # التحميل مقفل مؤقتاً (بطلب يحيى): الماسح وميزان فقط لهما رابط تحميل في الموقع الآن
+        "download": None,
         "file": "Mulaqqin-mac.zip",
         "try": "https://aldoraibi.github.io/mulaqqin/",
-        "source": f"{GH}/mulaqqin",
+        "source": None,
         "ar": {
             "name": "الملقّن العربي",
             "tag": "ملقّن نصوص عربي لتسجيل الفيديو.",
@@ -315,7 +316,8 @@ TOOLS = {
             ],
             "privacy": "نصّك يبقى على جهازك ولا يُرسل إلى أي مكان.",
             "req": [("الويب", "أي متصفح حديث"), ("الماك", iso("macOS 12 فأحدث") + "، معالجات آبل وإنتل"), ("الرخصة", "مفتوح المصدر " + iso("(MIT)"))],
-            "install": MAC_INSTALL_AR,
+            "install": None,
+            "note": "نسخة الماك: رابط تحميلها يُنشر هنا قريباً.",
         },
         "en": {
             "name": "Mulaqqin",
@@ -335,7 +337,8 @@ TOOLS = {
             ],
             "privacy": "Your script stays on your device and is never sent anywhere.",
             "req": [("Web", "Any modern browser"), ("Mac", "macOS 12 or later, Apple silicon & Intel"), ("License", "Open source (MIT)")],
-            "install": MAC_INSTALL_EN,
+            "install": None,
+            "note": "Mac version: its download link is coming here soon.",
         },
     },
     # ——————————————————————————————— فكرة

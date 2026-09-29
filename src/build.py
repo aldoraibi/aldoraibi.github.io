@@ -258,6 +258,8 @@ def page_tool(lang, slug):
         btns.append(f'<a class="btn btn-glass" href="{t["source"]}">{IC["code"]}<span>{u["source"]}</span></a>')
     if btns:
         note = f'<p class="note">{u["direct"]}</p>' if t.get("download") else ""
+        if d.get("note"):
+            note += f'<p class="note">{e(d["note"])}</p>'
         actions = f'<div class="actions">{"".join(btns)}{note}</div>'
     else:
         actions = f'<p class="pending">{u["pending_note"] if st == "pending" else u["soon_note"]}</p>'
