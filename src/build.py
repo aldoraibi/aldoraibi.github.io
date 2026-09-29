@@ -26,8 +26,6 @@ def inline_svg(name):
 
 LOGO = inline_svg("logo.svg").replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
 SIG = inline_svg("signature.svg")
-LOGO_GLASS = inline_svg("logo-glass.svg").replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
-NAME_AR = inline_svg("name-ar.svg")
 e = html.escape
 
 UI = {
@@ -199,8 +197,8 @@ def name_mark(lang):
     """الاسم تحت الشعار: الخط المخطوط بالعربية (قناع SVG بلون الهوية)، والاسم اللاتيني بالإنجليزية."""
     u = UI[lang]
     if lang == "ar":
-        svg = NAME_AR.replace("<svg ", f'<svg role="img" aria-label="{u["name"]}" ', 1)
-        return f'<h1 class="name-ar"><span class="sr">{u["name"]}</span>{svg}</h1>'
+        return (f'<h1 class="name-ar"><span class="sr">{u["name"]}</span>'
+                f'<span class="callig" role="img" aria-label="{u["name"]}"></span></h1>')
     return f'<h1 class="name-en">{u["name"]}</h1>'
 
 
@@ -220,7 +218,7 @@ def page_home(lang):
     return head(lang, u["title"], u["desc"], "/", "/en/") + f"""<header class="wrap">
   <div class="bar" style="justify-content:flex-end">{lang_switch(lang, '/', '/en/')}</div>
   <div class="hero hero-id">
-    <div class="mark" role="img" aria-label="{'شعار' if lang == 'ar' else 'Logo'} YD">{LOGO_GLASS}</div>
+    <div class="mark" role="img" aria-label="{'شعار' if lang == 'ar' else 'Logo'} YD">{LOGO}</div>
     {name_mark(lang)}
   </div>
 </header>
@@ -309,7 +307,7 @@ def page_404():
     u = UI["ar"]
     return head("ar", u["nf_title"], u["nf_body"], "/404.html", "/404.html") + f"""<main id="main" class="wrap">
   <div class="hero">
-    <div class="mark" role="img" aria-label="شعار YD">{LOGO_GLASS}</div>
+    <div class="mark" role="img" aria-label="شعار YD">{LOGO}</div>
     <h1>{u['nf_title']}</h1>
     <p class="core">{u['nf_body']}</p>
     <p class="core" lang="en" dir="ltr">{UI['en']['nf_body']}</p>
