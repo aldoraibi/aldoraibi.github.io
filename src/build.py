@@ -185,10 +185,10 @@ def tile(lang, slug):
     t = TOOLS[slug]
     d = t[lang]
     # ختم «قريباً» على كل أداة لا يمكن الحصول عليها الآن (تحميل مقفل أو قيد التطوير)
-    locked = t["status"] in ("pending", "soon")
+    locked = t["status"] in ("pending", "soon") or t.get("stamp", False)
     word = UI[lang]["stamp"]
     stamp = f'<span class="stamp" aria-hidden="true">{word}</span>' if locked else ""
-    sr = f'<span class="sr"> — {UI[lang]["status"][t["status"]]}</span>' if locked else ""
+    sr = f'<span class="sr"> — {word}</span>' if locked else ""
     return (f'<li><a class="app reveal" href="{tool_url(lang, slug)}">'
             f'<span class="glass"><img src="/assets/icons/{t["icon"]}" alt="" width="256" height="256" '
             f'loading="lazy" decoding="async">{stamp}</span>'
