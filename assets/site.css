@@ -1,0 +1,205 @@
+/* موقع يحيى الدريبي — هوية «منتصف الليل»
+   المرجع: ~/ClaudeFonts/brand/README.md — لا ألوان ولا خطوط خارجه. */
+
+@font-face{font-family:"thmanyah sans";src:url(/assets/fonts/thmanyahsans-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"thmanyah sans";src:url(/assets/fonts/thmanyahsans-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"thmanyah sans";src:url(/assets/fonts/thmanyahsans-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"thmanyah serif display";src:url(/assets/fonts/thmanyahserifdisplay-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
+
+/* الداكن هو الافتراضي */
+:root{
+  color-scheme:dark;
+  --bg:#1E2430;
+  --bg-deep:#0E131C;
+  --glow-1:#2E3A50;
+  --glow-2:#3E4A5E;
+  --text:#EEF2F8;
+  --text-2:rgba(226,233,245,.60);
+  --faint:rgba(226,233,245,.34);
+  --line:rgba(190,205,230,.12);
+  --accent:#DCE4F0;
+  --on-accent:#1E2430;
+  --active:#6EA8FF;
+  --warn:#FFB4A8;
+  --glass:rgba(30,36,48,.37);          /* 0.25 + 0.6 × (1 − 0.8) */
+  --glass-hi:rgba(255,255,255,.06);
+  --tile-edge:rgba(255,255,255,.22);
+  --r-panel:20px;
+  --r-card:12px;
+  --sans:"thmanyah sans",system-ui,-apple-system,sans-serif;
+  --display:"thmanyah serif display","thmanyah sans",serif;
+}
+/* الفاتح: الألوان نفسها معكوسة الأدوار */
+@media (prefers-color-scheme:light){
+  :root{
+    color-scheme:light;
+    --bg:#EEF2F8;
+    --bg-deep:#E2E9F5;
+    --glow-1:#DCE4F0;
+    --glow-2:#B7C2D4;
+    --text:#1E2430;
+    --text-2:rgba(30,36,48,.66);
+    --faint:rgba(30,36,48,.45);
+    --line:rgba(30,36,48,.12);
+    --accent:#1E2430;
+    --on-accent:#EEF2F8;
+    --glass:rgba(238,242,248,.55);
+    --glass-hi:rgba(30,36,48,.05);
+    --tile-edge:rgba(30,36,48,.10);
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  margin:0;min-height:100vh;
+  background:var(--bg-deep);
+  color:var(--text);
+  font-family:var(--sans);font-size:16px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* التوهّجان المموّهان خلف الواجهة */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(38rem 26rem at 85% -5%, color-mix(in srgb,var(--glow-1) 90%,transparent), transparent 70%),
+    radial-gradient(32rem 24rem at 10% 35%, color-mix(in srgb,var(--glow-2) 55%,transparent), transparent 70%);
+  filter:blur(40px);
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+
+.skip{position:absolute;inset-inline-start:16px;top:-60px;z-index:10;background:var(--accent);color:var(--on-accent);padding:8px 16px;border-radius:999px;text-decoration:none;font-weight:700}
+.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--active);outline-offset:3px;border-radius:var(--r-card)}
+
+.wrap{width:100%;max-width:980px;margin-inline:auto;padding-inline:16px}
+
+/* ——— الشريط العلوي ——— */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:16px}
+.bar .home{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700}
+.bar .home svg{height:22px;width:auto;color:var(--accent)}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+
+/* الأزرار: الأساسي فاتح، والثانوي كبسولة زجاجية */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:8px 20px;border-radius:999px;
+  font:700 15px/1.2 var(--sans);text-decoration:none;white-space:nowrap;
+  transition:background-color .15s ease, border-color .15s ease;
+}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-primary{background:var(--accent);color:var(--on-accent);border:1px solid transparent}
+.btn-primary:hover{background:color-mix(in srgb,var(--accent) 88%,var(--bg))}
+.btn-glass{background:var(--glass);color:var(--text);border:1px solid var(--line);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
+.btn-glass:hover{background:var(--glass-hi);border-color:color-mix(in srgb,var(--text) 22%,transparent)}
+.btn-sm{min-height:36px;padding:6px 14px;font-size:13.5px;font-weight:500}
+
+/* ——— الرأس ——— */
+.hero{padding-block:40px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.hero .mark{width:112px;color:var(--accent);filter:drop-shadow(0 0 18px color-mix(in srgb,var(--active) 35%,transparent))}
+.hero h1{font:500 clamp(34px,7vw,52px)/1.2 var(--display);letter-spacing:0}
+.hero .core{font-size:clamp(17px,2.6vw,20px);color:var(--text-2);max-width:34ch}
+.hero .pills{justify-content:center;margin-top:6px}
+
+/* ——— الأقسام ——— */
+main{padding-bottom:24px}
+.group{margin-top:48px}
+.group-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.group-head h2{font-size:15px;font-weight:700;letter-spacing:.2px}
+.group-head p{font-size:13px;color:var(--text-2)}
+
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+
+/* ——— البطاقة: كلها رابط إلى صفحة التفاصيل ——— */
+.card{
+  position:relative;display:flex;flex-direction:column;gap:14px;
+  padding:16px;border-radius:var(--r-card);
+  background:var(--glass);border:1px solid var(--line);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);
+  text-decoration:none;color:var(--text);
+  transition:background-color .15s ease,border-color .15s ease;
+}
+.card:hover{background:color-mix(in srgb,var(--glass) 70%,var(--glass-hi));border-color:color-mix(in srgb,var(--text) 20%,transparent)}
+.card:hover .more{color:var(--text)}
+.card-top{display:flex;gap:14px;align-items:center}
+.icon{width:64px;height:64px;flex:none}
+.icon img{width:100%;height:100%}
+.card h3{font-size:17px;font-weight:700;line-height:1.35}
+.card .tag{font-size:14px;color:var(--text-2);line-height:1.55}
+.feats{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.feats li{display:flex;gap:10px;align-items:baseline}
+.feats li::before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:var(--faint);transform:translateY(-3px)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line);align-items:center}
+.chip{font-size:12.5px;font-weight:500;color:var(--text-2);padding:2px 10px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.chip.on{color:var(--text);border-color:color-mix(in srgb,var(--active) 45%,transparent)}
+.chip.on::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--active);margin-inline-end:6px;vertical-align:1px}
+.more{margin-inline-start:auto;font-size:13px;font-weight:500;color:var(--text-2);display:inline-flex;gap:6px;align-items:center}
+.more svg{width:14px;height:14px}
+[dir="rtl"] .flip-rtl{transform:scaleX(-1)}
+.card.soon .icon{opacity:.8}
+
+/* ——— المبادئ ——— */
+.principles{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:720px){.principles{grid-template-columns:repeat(3,1fr)}}
+.principle{padding:16px;border-radius:var(--r-card);border:1px solid var(--line);background:var(--glass)}
+.principle svg{width:28px;height:28px;color:var(--accent);margin-bottom:10px}
+.principle h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.principle p{font-size:14px;color:var(--text-2)}
+
+/* ——— صفحة التفاصيل ——— */
+.panel{
+  margin-top:8px;padding:24px 16px;border-radius:var(--r-panel);
+  background:var(--glass);border:1px solid var(--line);
+  -webkit-backdrop-filter:blur(28px) saturate(1.4);backdrop-filter:blur(28px) saturate(1.4);
+}
+@media (min-width:720px){.panel{padding:32px}}
+.d-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.d-head .icon{width:96px;height:96px}
+.d-head h1{font:500 clamp(30px,6vw,40px)/1.25 var(--display)}
+.d-head .tag{font-size:17px;color:var(--text-2);margin-top:2px}
+.d-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.actions .note{flex-basis:100%;font-size:13px;color:var(--faint)}
+.pending{margin-top:22px;padding:12px 16px;border-radius:var(--r-card);border:1px dashed var(--line);color:var(--text-2);font-size:14.5px}
+.d-body{display:grid;grid-template-columns:1fr;gap:28px;margin-top:32px}
+@media (min-width:820px){.d-body{grid-template-columns:1.4fr 1fr}}
+.d-body h2{font-size:15px;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.d-body p{font-size:15.5px;color:var(--text-2)}
+.d-body .feats{font-size:15px;gap:9px}
+.d-body section+section{margin-top:26px}
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:10px;font-size:15px}
+.steps li{display:flex;gap:12px;align-items:baseline}
+.steps li::before{counter-increment:s;content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:500 13px/1 var(--display);border:1px solid var(--line);color:var(--text-2);transform:translateY(2px)}
+.box{padding:14px 16px;border-radius:var(--r-card);border:1px solid var(--line);background:var(--glass-hi);font-size:14.5px;color:var(--text-2)}
+.box strong{color:var(--text);font-weight:700}
+.box a,.d-body a:not(.btn){color:var(--text);text-underline-offset:3px;text-decoration-color:var(--faint)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14.5px}
+.kv dt{color:var(--faint)}
+.kv dd{margin:0}
+.others{margin-top:40px}
+
+/* ——— التذييل والتوقيع ——— */
+footer{padding-block:48px 28px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.credit{display:flex;align-items:center;gap:8px;color:var(--faint);font-size:12.5px;font-weight:500}
+.sig{height:10px;width:auto;direction:ltr}
+.foot-links{display:flex;gap:16px;font-size:13px;color:var(--faint)}
+.foot-links a{text-decoration:none}
+.foot-links a:hover{color:var(--text-2)}
+
+/* ——— الظهور الناعم عند التمرير فقط ——— */
+.js .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.shown{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  *{scroll-behavior:auto!important}
+}
+@media (max-width:420px){
+  .btn{padding-inline:16px}
+  .hero{padding-top:28px}
+}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
