@@ -169,20 +169,18 @@ def chips(lang, slug):
     return "".join(out)
 
 
-def card(lang, slug):
-    t, u = TOOLS[slug], UI[lang]
+def tile(lang, slug):
+    """أيقونة الأداة داخل بلاطة زجاجية واسمها فقط — الشرح في صفحة الأداة."""
+    t = TOOLS[slug]
     d = t[lang]
-    soon = t["status"] == "soon"
-    feats = "".join(f"<li>{e(f)}</li>" for f in d["feats"])
-    more = u["more_soon"] if t["status"] != "available" else u["more"]
-    return f"""<a class="card reveal{' soon' if soon else ''}" href="{tool_url(lang, slug)}">
-  <div class="card-top">
-    {icon_img(lang, slug)}
-    <div><h3>{e(d['name'])}</h3><p class="tag">{e(d['tag'])}</p></div>
-  </div>
-  <ul class="feats">{feats}</ul>
-  <div class="meta">{chips(lang, slug)}<span class="more">{more}{IC['arrow']}</span></div>
-</a>"""
+    return (f'<li><a class="app reveal" href="{tool_url(lang, slug)}">'
+            f'<span class="glass"><img src="/assets/icons/{t["icon"]}" alt="" width="256" height="256" '
+            f'loading="lazy" decoding="async"></span>'
+            f'<span class="app-name">{e(d["name"])}</span></a></li>')
+
+
+def tiles(lang, slugs):
+    return f'<ul class="apps">{"".join(tile(lang, s) for s in slugs)}</ul>'
 
 
 def page_home(lang):
@@ -190,12 +188,10 @@ def page_home(lang):
     groups = []
     for g in GROUPS:
         title, sub = g[lang]
-        cards = "\n".join(card(lang, s) for s in g["tools"])
+        note = f"<p>{e(sub)}</p>" if g["id"] == "learn" else ""
         groups.append(f"""<section class="group" aria-labelledby="g-{g['id']}">
-  <div class="group-head"><h2 id="g-{g['id']}">{e(title)}</h2><p>{e(sub)}</p></div>
-  <div class="grid">
-{cards}
-  </div>
+  <div class="group-head"><h2 id="g-{g['id']}">{e(title)}</h2>{note}</div>
+  {tiles(lang, g["tools"])}
 </section>""")
     principles = "".join(
         f'<div class="principle reveal">{P_ICONS[i]}<h3>{e(h)}</h3><p>{e(p)}</p></div>'
@@ -266,7 +262,7 @@ def page_tool(lang, slug):
     others_html = ""
     if others:
         others_html = (f'<section class="others" aria-labelledby="o-h"><div class="group-head"><h2 id="o-h">{u["others"]}</h2></div>'
-                       f'<div class="grid">{"".join(card(lang, s) for s in others)}</div></section>')
+                       f'{tiles(lang, others)}</section>')
 
     title = f'{d["name"]} — {d["tag"]}'
     return head(lang, title, d["tag"], path_ar, path_en) + f"""<header class="wrap">

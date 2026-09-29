@@ -24,6 +24,12 @@
   --glass:rgba(30,36,48,.37);          /* 0.25 + 0.6 × (1 − 0.8) */
   --glass-hi:rgba(255,255,255,.06);
   --tile-edge:rgba(255,255,255,.22);
+  --rim-1:rgba(255,255,255,.10);
+  --rim-2:rgba(255,255,255,.02);
+  --rim-top:rgba(255,255,255,.55);
+  --rim-bottom:rgba(255,255,255,.14);
+  --sheen:rgba(255,255,255,.16);
+  --tile-shadow:rgba(0,0,0,.40);
   --r-panel:20px;
   --r-card:12px;
   --sans:"thmanyah sans",system-ui,-apple-system,sans-serif;
@@ -46,6 +52,12 @@
     --glass:rgba(238,242,248,.55);
     --glass-hi:rgba(30,36,48,.05);
     --tile-edge:rgba(30,36,48,.10);
+    --rim-1:rgba(255,255,255,.45);
+    --rim-2:rgba(255,255,255,.12);
+    --rim-top:rgba(255,255,255,.95);
+    --rim-bottom:rgba(30,36,48,.10);
+    --sheen:rgba(255,255,255,.22);
+    --tile-shadow:rgba(30,36,48,.16);
   }
 }
 
@@ -112,36 +124,53 @@ main{padding-bottom:24px}
 .group-head h2{font-size:15px;font-weight:700;letter-spacing:.2px}
 .group-head p{font-size:13px;color:var(--text-2)}
 
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
-@media (min-width:720px){.grid{grid-template-columns:1fr 1fr}}
 
-/* ——— البطاقة: كلها رابط إلى صفحة التفاصيل ——— */
-.card{
-  position:relative;display:flex;flex-direction:column;gap:14px;
-  padding:16px;border-radius:var(--r-card);
-  background:var(--glass);border:1px solid var(--line);
-  -webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);
-  text-decoration:none;color:var(--text);
-  transition:background-color .15s ease,border-color .15s ease;
+/* ——— شبكة الأدوات: أيقونة في بلاطة زجاجية واسم فقط ——— */
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 12px;padding-top:4px}
+@media (min-width:560px){.apps{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:820px){.apps{grid-template-columns:repeat(5,1fr)}}
+.app{display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--text);border-radius:var(--r-card);padding:6px 0}
+.app:focus-visible{outline:none}
+.app:focus-visible .glass{outline:2px solid var(--active);outline-offset:4px}
+.app-name{font-size:14.5px;font-weight:500;line-height:1.3;text-align:center;color:var(--text-2);transition:color .15s ease}
+.app:hover .app-name,.app:focus-visible .app-name{color:var(--text)}
+
+/* الزجاج: لوح مصبوغ بلون الخلفية، وحافة لامعة، ولمعة علوية */
+.glass{
+  position:relative;display:block;width:clamp(84px,24vw,112px);aspect-ratio:1;
+  border-radius:28%;
+  background:linear-gradient(160deg,var(--rim-1),var(--rim-2));
+  -webkit-backdrop-filter:blur(24px) saturate(1.6);backdrop-filter:blur(24px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 1px var(--rim-top),
+    inset 0 -1px 1px var(--rim-bottom),
+    0 12px 28px var(--tile-shadow);
+  transition:transform .2s ease, box-shadow .2s ease;
 }
-.card:hover{background:color-mix(in srgb,var(--glass) 70%,var(--glass-hi));border-color:color-mix(in srgb,var(--text) 20%,transparent)}
-.card:hover .more{color:var(--text)}
-.card-top{display:flex;gap:14px;align-items:center}
-.icon{width:64px;height:64px;flex:none}
-.icon img{width:100%;height:100%}
-.card h3{font-size:17px;font-weight:700;line-height:1.35}
-.card .tag{font-size:14px;color:var(--text-2);line-height:1.55}
+/* حافة زجاجية متدرّجة: أسطع أعلى البلاطة وتخفت نحو الأسفل */
+.glass::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:linear-gradient(160deg,var(--rim-top) 0%,transparent 42%,transparent 62%,var(--rim-bottom) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+}
+/* لمعة الزجاج فوق الأيقونة */
+.glass::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(120% 70% at 30% 0%,var(--sheen),transparent 55%);
+}
+.glass img{position:absolute;inset:0;width:100%;height:100%}
+.app:hover .glass{transform:translateY(-2px);box-shadow:inset 0 1px 1px var(--rim-top),inset 0 -1px 1px var(--rim-bottom),0 16px 34px var(--tile-shadow)}
+
 .feats{display:flex;flex-direction:column;gap:6px;font-size:14px}
 .feats li{display:flex;gap:10px;align-items:baseline}
 .feats li::before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:var(--faint);transform:translateY(-3px)}
-.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line);align-items:center}
 .chip{font-size:12.5px;font-weight:500;color:var(--text-2);padding:2px 10px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
 .chip.on{color:var(--text);border-color:color-mix(in srgb,var(--active) 45%,transparent)}
 .chip.on::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--active);margin-inline-end:6px;vertical-align:1px}
-.more{margin-inline-start:auto;font-size:13px;font-weight:500;color:var(--text-2);display:inline-flex;gap:6px;align-items:center}
-.more svg{width:14px;height:14px}
 [dir="rtl"] .flip-rtl{transform:scaleX(-1)}
-.card.soon .icon{opacity:.8}
+.icon{width:64px;height:64px;flex:none}
+.icon img{width:100%;height:100%}
 
 /* ——— المبادئ ——— */
 .principles{display:grid;grid-template-columns:1fr;gap:12px}
@@ -195,6 +224,7 @@ footer{padding-block:48px 28px;display:flex;flex-direction:column;align-items:ce
 .js .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
 .js .reveal.shown{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
+  .glass,.app:hover .glass{transition:none;transform:none}
   .js .reveal{opacity:1;transform:none;transition:none}
   *{scroll-behavior:auto!important}
 }
