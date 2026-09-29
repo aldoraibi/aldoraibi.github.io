@@ -30,6 +30,9 @@
   --rim-bottom:rgba(255,255,255,.14);
   --sheen:rgba(255,255,255,.16);
   --tile-shadow:rgba(0,0,0,.40);
+  --stamp-ink:#FFB4A8;
+  --stamp-text:#FFB4A8;
+  --stamp-bg:rgba(14,19,28,.78);
   --r-panel:20px;
   --r-card:12px;
   --sans:"thmanyah sans",system-ui,-apple-system,sans-serif;
@@ -58,6 +61,9 @@
     --rim-bottom:rgba(30,36,48,.10);
     --sheen:rgba(255,255,255,.22);
     --tile-shadow:rgba(30,36,48,.16);
+    --stamp-ink:#FFB4A8;
+    --stamp-text:#1E2430;
+    --stamp-bg:#FFB4A8;
   }
 }
 
@@ -241,3 +247,15 @@ footer{padding-block:48px 28px;display:flex;flex-direction:column;align-items:ce
   .hero{padding-top:28px}
 }
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ختم «قريباً» على زاوية الأداة المقفلة — بلون التحذير في الهوية */
+.stamp{
+  position:absolute;z-index:2;top:-7px;inset-inline-end:-12px;
+  padding:4px 11px 5px;border-radius:7px;
+  font:700 13.5px/1.1 var(--sans);letter-spacing:.02em;white-space:nowrap;
+  color:var(--stamp-text);background:var(--stamp-bg);
+  border:1.5px solid var(--stamp-ink);
+  box-shadow:inset 0 0 0 2px var(--stamp-bg),inset 0 0 0 3px color-mix(in srgb,var(--stamp-ink) 55%,transparent),0 4px 10px var(--tile-shadow);
+  transform:rotate(-12deg);
+}
+[lang="en"] .stamp{letter-spacing:.14em;font-size:12px}

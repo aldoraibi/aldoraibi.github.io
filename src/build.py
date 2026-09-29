@@ -44,7 +44,7 @@ UI = {
         "status": {"available": "متاح", "pending": "التحميل قريباً", "soon": "قريباً"},
         "more": "التفاصيل والتحميل", "more_soon": "التفاصيل",
         "back": "كل الأدوات", "download": "حمّل", "try": "جرّبه في المتصفح", "open": "افتحه",
-        "page": "صفحة الأداة", "source": "المصدر", "guide": "الدليل",
+        "page": "صفحة الأداة", "source": "المصدر", "guide": "الدليل", "stamp": "قريباً",
         "direct": "رابط مباشر لأحدث إصدار من GitHub.",
         "pending_note": "الأداة جاهزة وأستخدمها يومياً، ورابط تحميلها يُنشر قريباً.",
         "soon_note": "قيد التطوير، وتُعلن هنا حين تصدر.",
@@ -68,7 +68,7 @@ UI = {
         "status": {"available": "Available", "pending": "Download soon", "soon": "Coming soon"},
         "more": "Details & download", "more_soon": "Details",
         "back": "All tools", "download": "Download", "try": "Try it in the browser", "open": "Open it",
-        "page": "Tool page", "source": "Source", "guide": "Guide (Arabic)",
+        "page": "Tool page", "source": "Source", "guide": "Guide (Arabic)", "stamp": "SOON",
         "direct": "Direct link to the latest release on GitHub.",
         "pending_note": "The app is finished and in my daily use; its download link is coming soon.",
         "soon_note": "In development — it will be announced here on release.",
@@ -184,10 +184,15 @@ def tile(lang, slug):
     """أيقونة الأداة داخل بلاطة زجاجية واسمها فقط — الشرح في صفحة الأداة."""
     t = TOOLS[slug]
     d = t[lang]
+    # ختم «قريباً» على كل أداة لا يمكن الحصول عليها الآن (تحميل مقفل أو قيد التطوير)
+    locked = t["status"] in ("pending", "soon")
+    word = UI[lang]["stamp"]
+    stamp = f'<span class="stamp" aria-hidden="true">{word}</span>' if locked else ""
+    sr = f'<span class="sr"> — {UI[lang]["status"][t["status"]]}</span>' if locked else ""
     return (f'<li><a class="app reveal" href="{tool_url(lang, slug)}">'
             f'<span class="glass"><img src="/assets/icons/{t["icon"]}" alt="" width="256" height="256" '
-            f'loading="lazy" decoding="async"></span>'
-            f'<span class="app-name">{e(d["name"])}</span></a></li>')
+            f'loading="lazy" decoding="async">{stamp}</span>'
+            f'<span class="app-name">{e(d["name"])}{sr}</span></a></li>')
 
 
 def tiles(lang, slugs):
@@ -254,8 +259,7 @@ def page_tool(lang, slug):
     if t.get("guide"):
         btns.append(f'<a class="btn btn-glass" href="{t["guide"]}"' + (' hreflang="ar"' if lang == "en" else "")
                     + f'>{IC["book"]}<span>{u["guide"]}</span></a>')
-    if t.get("source"):
-        btns.append(f'<a class="btn btn-glass" href="{t["source"]}">{IC["code"]}<span>{u["source"]}</span></a>')
+    # زر «المصدر» ملغى من الموقع (بطلب يحيى)
     if btns:
         note = f'<p class="note">{u["direct"]}</p>' if t.get("download") else ""
         if d.get("note"):
