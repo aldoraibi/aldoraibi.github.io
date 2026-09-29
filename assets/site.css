@@ -116,6 +116,14 @@ ul{padding:0;list-style:none}
 .hero h1{font:500 clamp(34px,7vw,52px)/1.2 var(--display);letter-spacing:0}
 .hero .core{font-size:clamp(17px,2.6vw,20px);color:var(--text-2);max-width:34ch}
 .hero .pills{justify-content:center;margin-top:6px}
+/* الرأس: الشعار والاسم فقط */
+.hero-id{gap:16px;padding-block:36px 4px}
+.hero-id .mark{width:104px}
+.name-ar{line-height:0}
+/* الاسم المخطوط: قناع من ملف SVG يأخذ لون الهوية، فيتبع الوضعين الداكن والفاتح */
+.callig{display:block;width:min(212px,58vw);aspect-ratio:1323/715;background:var(--accent);
+  -webkit-mask:url(/assets/name-ar.svg) center/contain no-repeat;mask:url(/assets/name-ar.svg) center/contain no-repeat}
+.hero h1.name-en{font-size:clamp(28px,5vw,36px)}
 
 /* ——— الأقسام ——— */
 main{padding-bottom:24px}

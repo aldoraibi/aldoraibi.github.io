@@ -193,6 +193,15 @@ def tiles(lang, slugs):
     return f'<ul class="apps">{"".join(tile(lang, s) for s in slugs)}</ul>'
 
 
+def name_mark(lang):
+    """الاسم تحت الشعار: الخط المخطوط بالعربية (قناع SVG بلون الهوية)، والاسم اللاتيني بالإنجليزية."""
+    u = UI[lang]
+    if lang == "ar":
+        return (f'<h1 class="name-ar"><span class="sr">{u["name"]}</span>'
+                f'<span class="callig" role="img" aria-label="{u["name"]}"></span></h1>')
+    return f'<h1 class="name-en">{u["name"]}</h1>'
+
+
 def page_home(lang):
     u = UI[lang]
     groups = []
@@ -208,14 +217,9 @@ def page_home(lang):
         for i, (h, p) in enumerate(u["p"]))
     return head(lang, u["title"], u["desc"], "/", "/en/") + f"""<header class="wrap">
   <div class="bar" style="justify-content:flex-end">{lang_switch(lang, '/', '/en/')}</div>
-  <div class="hero">
+  <div class="hero hero-id">
     <div class="mark" role="img" aria-label="{'شعار' if lang == 'ar' else 'Logo'} YD">{LOGO}</div>
-    <h1>{u['name']}</h1>
-    <p class="core">{u['core']}</p>
-    <div class="pills">
-      <a class="btn btn-glass btn-sm" href="{X_URL}" rel="me">{IC['at']}<span>X · @ALDoraibi</span></a>
-      <a class="btn btn-glass btn-sm" href="{GH}" rel="me">{IC['code']}<span>GitHub</span></a>
-    </div>
+    {name_mark(lang)}
   </div>
 </header>
 <main id="main" class="wrap">
