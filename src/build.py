@@ -8,6 +8,7 @@
 import html
 import os
 import re
+import urllib.parse
 from pathlib import Path
 
 from tools import GROUPS, TOOLS, X_URL, GH
@@ -15,6 +16,8 @@ from tools import GROUPS, TOOLS, X_URL, GH
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(__file__).resolve().parent
 SITE = "https://aldoraibi.github.io"
+# رمز حساب GoatCounter (عدّاد الزيارات): عنوان اللوحة https://<الرمز>.goatcounter.com
+GC_CODE = "aldoraibi"
 
 
 def inline_svg(name):
@@ -37,7 +40,6 @@ UI = {
         "switch": "English", "switch_lang": "en", "skip": "تخطَّ إلى المحتوى",
         "tools": "الأدوات", "principles": "كيف أبني أدواتي",
         "p": [
-            ("بلا جمع بيانات", "لا حسابات ولا تحليلات ولا تتبّع. ما تكتبه وما تقيسه يبقى على جهازك."),
             ("دون اتصال", "أدواتي تؤدي عملها بلا إنترنت، ولا تحتاج خادماً لتعمل."),
             ("العربية أولاً", "واجهات من اليمين لليسار بخط ثمانية، والإنجليزية خيار لا أصل."),
         ],
@@ -45,6 +47,11 @@ UI = {
         "more": "التفاصيل والتحميل", "more_soon": "التفاصيل",
         "back": "كل الأدوات", "download": "حمّل", "try": "جرّبه في المتصفح", "open": "افتحه",
         "page": "صفحة الأداة", "source": "المصدر", "guide": "الدليل", "stamp": "قريباً",
+        "share": "شارك الأداة", "share_x": "انشرها في X", "opinion": "شاركني رأيك", "copied": "نُسخ الرابط",
+        "share_text": "{name} — {tag}", "opinion_text": "@ALDoraibi رأيي في «{name}»: ",
+        "suggest_h": "عندك فكرة أداة؟", "suggest_p": "اكتب لي الأداة التي تتمنى أن أصنعها، وأقرأ كل اقتراح.",
+        "suggest": "اقترح أداة", "suggest_text": "@ALDoraibi أتمنى أداة: ",
+        "visits": "زيارات الموقع",
         "direct": "رابط مباشر لأحدث إصدار من GitHub.",
         "pending_note": "الأداة جاهزة وأستخدمها يومياً، ورابط تحميلها يُنشر قريباً.",
         "soon_note": "قيد التطوير، وتُعلن هنا حين تصدر.",
@@ -61,7 +68,6 @@ UI = {
         "switch": "العربية", "switch_lang": "ar", "skip": "Skip to content",
         "tools": "Tools", "principles": "How I build my tools",
         "p": [
-            ("No data collection", "No accounts, no analytics, no tracking. What you write and measure stays on your device."),
             ("Works offline", "My tools do their job without the internet, and need no server to run."),
             ("Arabic first", "Right-to-left interfaces set in Thmanyah, with English as an option — not the default."),
         ],
@@ -69,6 +75,11 @@ UI = {
         "more": "Details & download", "more_soon": "Details",
         "back": "All tools", "download": "Download", "try": "Try it in the browser", "open": "Open it",
         "page": "Tool page", "source": "Source", "guide": "Guide (Arabic)", "stamp": "SOON",
+        "share": "Share this tool", "share_x": "Post on X", "opinion": "Tell me what you think", "copied": "Link copied",
+        "share_text": "{name} — {tag}", "opinion_text": "@ALDoraibi My take on {name}: ",
+        "suggest_h": "Got an idea for a tool?", "suggest_p": "Tell me the tool you wish I’d build — I read every suggestion.",
+        "suggest": "Suggest a tool", "suggest_text": "@ALDoraibi I wish there was a tool that ",
+        "visits": "Site visits",
         "direct": "Direct link to the latest release on GitHub.",
         "pending_note": "The app is finished and in my daily use; its download link is coming soon.",
         "soon_note": "In development — it will be announced here on release.",
@@ -81,6 +92,9 @@ UI = {
 
 # أيقونات خطية صغيرة (مسارات بسيطة، بلا شعارات شركات)
 IC = {
+    "share": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 10V2.5M5 5.2 8 2.2l3 3M4.5 7.5H3.5v6h9v-6h-1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "chat": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3.5h10v7H7.5L4.5 13v-2.5H3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+    "bulb": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.2 11.5c0-1.4-2.2-2.3-2.2-4.8a4 4 0 0 1 8 0c0 2.5-2.2 3.4-2.2 4.8zM6.5 13.5h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "book": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3.5h4a1.5 1.5 0 0 1 1 .5 1.5 1.5 0 0 1 1-.5h4v9H9a1 1 0 0 0-1 .5 1 1 0 0 0-1-.5H3z M8 4v8.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
     "arrow": '<svg class="flip-rtl" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "back": '<svg class="flip-rtl" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13 8H3M7 4L3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -154,12 +168,13 @@ def footer(lang):
     u = UI[lang]
     return f"""<footer class="wrap">
   <div class="credit">{u['by']} {SIG}</div>
+  <p class="visits" hidden><span>{u['visits']}:</span> <bdi class="visits-n"></bdi></p>
   <nav class="foot-links" aria-label="{'روابط' if lang == 'ar' else 'Links'}">
     <a href="{X_URL}" rel="me">X</a>
     <a href="{GH}" rel="me">GitHub</a>
   </nav>
 </footer>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js" defer data-gc-code="{GC_CODE}"></script>
 </body>
 </html>
 """
@@ -219,7 +234,7 @@ def page_home(lang):
   {tiles(lang, g["tools"])}
 </section>""")
     principles = "".join(
-        f'<div class="principle reveal">{P_ICONS[i]}<h3>{e(h)}</h3><p>{e(p)}</p></div>'
+        f'<div class="principle reveal">{P_ICONS[i + 1]}<h3>{e(h)}</h3><p>{e(p)}</p></div>'
         for i, (h, p) in enumerate(u["p"]))
     return head(lang, u["title"], u["desc"], "/", "/en/") + f"""<header class="wrap">
   <div class="bar" style="justify-content:flex-end">{lang_switch(lang, '/', '/en/')}</div>
@@ -231,12 +246,39 @@ def page_home(lang):
 <main id="main" class="wrap">
 <h2 class="sr">{u['tools']}</h2>
 {chr(10).join(groups)}
+<section class="suggest reveal" aria-labelledby="g-suggest">
+  <div><h2 id="g-suggest">{u['suggest_h']}</h2><p>{u['suggest_p']}</p></div>
+  <a class="btn btn-primary" data-gc="suggest" href="{e(x_intent(u['suggest_text']))}">{IC['bulb']}<span>{u['suggest']}</span></a>
+</section>
 <section class="group" aria-labelledby="g-principles">
   <div class="group-head"><h2 id="g-principles">{u['principles']}</h2></div>
   <div class="principles">{principles}</div>
 </section>
 </main>
 """ + footer(lang)
+
+
+def x_intent(text, url=None):
+    """رابط منشور جاهز في X (الصيغة الرسمية x.com/intent/tweet)."""
+    q = {"text": text}
+    if url:
+        q["url"] = url
+    return "https://x.com/intent/tweet?" + urllib.parse.urlencode(q, quote_via=urllib.parse.quote)
+
+
+def share_row(lang, slug):
+    u, d = UI[lang], TOOLS[slug][lang]
+    url = SITE + tool_url(lang, slug)
+    text = u["share_text"].format(name=d["name"], tag=d["tag"])
+    return (f'<div class="share-row">'
+            f'<button type="button" class="btn btn-glass btn-sm js-share" data-gc="share-{slug}" '
+            f'data-title="{e(d["name"])}" data-text="{e(text)}" data-url="{url}" data-copied="{e(u["copied"])}">'
+            f'{IC["share"]}<span>{u["share"]}</span></button>'
+            f'<a class="btn btn-glass btn-sm" data-gc="x-share-{slug}" href="{e(x_intent(text + " عبر @ALDoraibi" if lang == "ar" else text + " via @ALDoraibi", url))}">'
+            f'<span>{u["share_x"]}</span></a>'
+            f'<a class="btn btn-glass btn-sm" data-gc="opinion-{slug}" href="{e(x_intent(u["opinion_text"].format(name=d["name"]), url))}">'
+            f'{IC["chat"]}<span>{u["opinion"]}</span></a>'
+            f'<span class="share-status" role="status" aria-live="polite"></span></div>')
 
 
 def page_tool(lang, slug):
@@ -248,7 +290,7 @@ def page_tool(lang, slug):
     # الأزرار: التحميل المباشر أولاً، ثم التجربة أو صفحة الأداة، ثم المصدر
     btns = []
     if t.get("download"):
-        btns.append(f'<a class="btn btn-primary" href="{t["download"]}">{IC["down"]}'
+        btns.append(f'<a class="btn btn-primary" href="{t["download"]}" data-gc="download-{slug}">{IC["down"]}'
                     f'<span>{u["download"]} {e(t["file"])}</span></a>')
     if t.get("try"):
         cls = "btn-glass" if t.get("download") else "btn-primary"
@@ -267,6 +309,8 @@ def page_tool(lang, slug):
         actions = f'<div class="actions">{"".join(btns)}{note}</div>'
     else:
         actions = f'<p class="pending">{u["pending_note"] if st == "pending" else u["soon_note"]}</p>'
+
+    actions += share_row(lang, slug)
 
     feats = "".join(f"<li>{e(f)}</li>" for f in d["feats"] + d.get("more", []))
     kv = "".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in d["req"])

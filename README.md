@@ -22,6 +22,10 @@ python3 src/build.py
 
 <div dir="rtl">
 
-ثم commit. لا تحليلات، ولا ملفات تتبّع، ولا خطوط أو سكربتات من مواقع خارجية.
+ثم commit. لا خطوط ولا سكربتات من مواقع خارجية.
+
+## عدّاد الزيارات
+
+الموقع يعدّ الزيارات وضغطات أزرار التحميل والمشاركة عبر GoatCounter، بلا كوكيز. الرمز في `src/build.py` (`GC_CODE`)، واللوحة على `https://<الرمز>.goatcounter.com`. الرقم الظاهر في أسفل الصفحة لا يظهر إلا إذا فُعّل خيار «Allow adding visitor counts on your website» في إعدادات GoatCounter.
 
 </div>

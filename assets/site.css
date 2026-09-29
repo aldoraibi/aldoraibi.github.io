@@ -188,7 +188,7 @@ main{padding-bottom:24px}
 
 /* ——— المبادئ ——— */
 .principles{display:grid;grid-template-columns:1fr;gap:12px}
-@media (min-width:720px){.principles{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:720px){.principles{grid-template-columns:repeat(2,1fr)}}
 .principle{padding:16px;border-radius:var(--r-card);border:1px solid var(--line);background:var(--glass)}
 .principle svg{width:28px;height:28px;color:var(--accent);margin-bottom:10px}
 .principle h3{font-size:15px;font-weight:700;margin-bottom:4px}
@@ -259,3 +259,16 @@ footer{padding-block:48px 28px;display:flex;flex-direction:column;align-items:ce
   transform:rotate(-12deg);
 }
 [lang="en"] .stamp{letter-spacing:.14em;font-size:12px}
+
+/* ——— المشاركة والرأي في صفحة الأداة ——— */
+.share-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.share-status{font-size:13px;color:var(--text-2);min-height:1em}
+/* ——— «عندك فكرة أداة؟» في الرئيسية ——— */
+.suggest{margin-top:48px;padding:20px;border-radius:var(--r-panel);border:1px solid var(--line);background:var(--glass);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.suggest h2{font-size:17px;font-weight:700}
+.suggest p{font-size:14.5px;color:var(--text-2);margin-top:2px}
+/* ——— عدّاد الزيارات في التذييل ——— */
+.visits{font-size:12.5px;color:var(--faint)}
+.visits bdi{font-family:var(--display);font-variant-numeric:tabular-nums}
