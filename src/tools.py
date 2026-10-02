@@ -99,8 +99,11 @@ TOOLS = {
     # ——————————————————————————————— راصد
     "rasid": {
         "icon": "rasid.webp",
-        "status": "pending",
-        "download": None, "file": None, "page": None, "source": None,
+        "status": "available",
+        "download": f"{GH}/rasid/releases/latest/download/Rasid.zip",
+        "file": "Rasid.zip",
+        "page": None,
+        "source": f"{GH}/rasid",
         "ar": {
             "name": "راصد",
             "tag": "مراقب النشاط بنظرة واحدة من شريط القوائم.",
@@ -119,7 +122,7 @@ TOOLS = {
             ],
             "privacy": "بلا شبكة إطلاقاً ولا جمع بيانات، ولا صلاحيات إدارية ولا وصول كامل للقرص. يطلب الإشعارات عند أول تنبيه فقط، والتشغيل مع الجهاز اختياري.",
             "req": [("النظام", iso("macOS 14 فأحدث"))],
-            "install": None,
+            "install": MAC_INSTALL_AR,
         },
         "en": {
             "name": "Rasid",
@@ -139,14 +142,17 @@ TOOLS = {
             ],
             "privacy": "No network, no data collection, no admin rights and no Full Disk Access. It asks for notifications only on the first alert; launch at login is optional.",
             "req": [("System", "macOS 14 or later")],
-            "install": None,
+            "install": MAC_INSTALL_EN,
         },
     },
     # ——————————————————————————————— روتين
     "routine": {
         "icon": "routine.webp",
-        "status": "pending",
-        "download": None, "file": None, "page": None, "source": None,
+        "status": "available",
+        "download": f"{GH}/routine/releases/latest/download/Routine.zip",
+        "file": "Routine.zip",
+        "page": None,
+        "source": f"{GH}/routine",
         "ar": {
             "name": "روتين",
             "tag": "مهامك في تقويم واحد: اليوم والأسبوع والشهر.",
@@ -154,6 +160,7 @@ TOOLS = {
             "feats": [
                 "جدولة المهام والوقت بعرض اليوم والأسبوع والشهر",
                 "ربط باتجاهين مع «التذكيرات» في آبل",
+                "«فرّغ اليوم»: رحّل مهام اليوم للغد أو وزّعها حسب الفراغ",
                 "ودجت لسطح المكتب بثلاثة أحجام",
             ],
             "about": "تطبيق ماك لإدارة مهامك في تقويم: تضع المهمة في وقتها، ويبيّن لك الفراغات والتعارضات، ويوزّع المهام تلقائياً على وقت المهام في يومك. يعيش في شريط القوائم وفي شريط الأيقونات معاً.",
@@ -166,7 +173,7 @@ TOOLS = {
             ],
             "privacy": "مهامك في ملف واحد على جهازك مع نسخ احتياطية. بلا شبكة ولا صلاحيات إدارية، وكل صلاحية اختيارية ومطفأة حتى تفعّلها: التقويم للقراءة فقط، و«التذكيرات» للربط، والإشعارات للتنبيه.",
             "req": [("النظام", iso("macOS 14 فأحدث"))],
-            "install": None,
+            "install": MAC_INSTALL_AR + ["امنح روتين صلاحية «التذكيرات» إن أردت الربط بها. الودجت غير متاح في هذه النسخة."],
         },
         "en": {
             "name": "Routine",
@@ -175,6 +182,7 @@ TOOLS = {
             "feats": [
                 "Schedule tasks and time in day, week and month views",
                 "Two-way sync with Apple Reminders",
+                "“Clear today”: push today’s tasks to tomorrow or spread them by free time",
                 "Desktop widgets in three sizes",
             ],
             "about": "A Mac app for managing tasks on a calendar: put each task in its time slot, see gaps and conflicts, and let it spread tasks across the task hours of your day. It lives in both the menu bar and the Dock.",
@@ -187,7 +195,7 @@ TOOLS = {
             ],
             "privacy": "Your tasks live in a single file on your Mac, with backups. No network, no admin rights, and every permission is optional and off until you turn it on: Calendar (read-only), Reminders for sync, notifications for alerts.",
             "req": [("System", "macOS 14 or later")],
-            "install": None,
+            "install": MAC_INSTALL_EN + ["Grant Reminders access if you want the sync. Widgets aren’t included in this build."],
         },
     },
     # ——————————————————————————————— ساعة
