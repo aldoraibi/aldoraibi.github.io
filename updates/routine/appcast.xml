@@ -3,6 +3,26 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.5</title>
+            <pubDate>Sat, 03 Oct 2026 22:27:09 +0300</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>1.5</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.5</h3>
+<ul>
+<li><b>الفكرة اللي فيها موعد تصير مهمة تلقائياً</b>: «اتصل على السفارة الساعة 9 ص بكرة» من «فكرة» تُجدول في وقتها، وتنتقل من «أفكار» إلى القسم المناسب (العمل، تعلّم، صحة، المنزل، أو شخصي) بدون تدخل منك.</li>
+<li>الأفكار بلا موعد تبقى في «أفكار» كما هي.</li>
+<li><b>يفهم الموعد من النص</b>: اليوم، الليلة، بكرة، بعد بكرة، أيام الأسبوع، «الساعة 9»، «9 ص/م»، «9:30»، «ونص/وربع/إلا ربع»، الصبح، العصر، المغرب، الليل — ويضبط تنبيه التذكير على الوقت.</li>
+<li>الساعة بلا ص أو م: من 1 إلى 6 مساءً، ومن 7 إلى 11 صباحاً.</li>
+<li>ما رتّبه روتين سابقاً في غير وقته المكتوب يُنقل إلى الساعة المكتوبة.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.5.zip" length="3901635" type="application/octet-stream" sparkle:edSignature="tzUceHpqQKKy/3vV3tf20kX8epCAIyZvKLGTtUgx1iz4CBAUE9/WoG8zUw0lixZK1sqpSdD64l3E0zJmCiAWBA=="/>
+        </item>
+        <item>
             <title>1.4</title>
             <pubDate>Sat, 03 Oct 2026 22:21:18 +0300</pubDate>
             <sparkle:version>6</sparkle:version>
@@ -37,24 +57,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.3.zip" length="3881564" type="application/octet-stream" sparkle:edSignature="zdtEMzzVRg521wkBQpWjZmUElwqPkkEj0Y2EQSrwz+NDk5rwNJ6E73dnPEdC8D3x8iMxX+V28cp49z0zKPMUAQ=="/>
-        </item>
-        <item>
-            <title>1.2</title>
-            <pubDate>Sat, 03 Oct 2026 21:07:25 +0300</pubDate>
-            <sparkle:version>4</sparkle:version>
-            <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.2</h3>
-<ul>
-<li><b>التحديث التلقائي</b>: يخبرك روتين حين يتوفر إصدار أحدث، وبضغطة واحدة يُنزَّل ويُثبَّت ويعيد التشغيل.</li>
-<li>الفحص مرة في اليوم، ويُطفأ من الإعدادات ← «التحديثات».</li>
-<li>لا يُرسل أي بيانات عنك أو عن جهازك.</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.2.zip" length="3874732" type="application/octet-stream" sparkle:edSignature="VZTcrDpHn7H6284qadabHo6q7NkUSoOqlx20z8d1Uo15n3Zf7ojxTDQuQA+Txh+CGStsBXOOFOq3yh/J2izFDA=="/>
         </item>
     </channel>
 </rss>
