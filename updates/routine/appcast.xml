@@ -3,6 +3,25 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.4</title>
+            <pubDate>Sat, 03 Oct 2026 22:21:18 +0300</pubDate>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>1.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.4</h3>
+<ul>
+<li><b>يفهم الموعد من نص التذكير</b>: اكتب في «فكرة» أو «التذكيرات» مثل «اتصل على السفارة الساعة 9 ص بكرة» فيضعها روتين في الغد الساعة 9، ويضبط تنبيه التذكير على وقتها.</li>
+<li>يفهم: اليوم، الليلة، بكرة، بعد بكرة، أيام الأسبوع، «الساعة 9»، «9 ص/م»، «9:30»، «9 ونص/وربع/إلا ربع»، الصبح، العصر، المغرب، الليل.</li>
+<li>الساعة بلا ص أو م: من 1 إلى 6 مساءً، ومن 7 إلى 11 صباحاً.</li>
+<li>ما رتّبه روتين سابقاً في غير وقته المكتوب يُنقل إلى الساعة المكتوبة.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.4.zip" length="3899073" type="application/octet-stream" sparkle:edSignature="/f1XmzezR0opVcUYXTbnDZ8Fzz5RAV7GFxV/hLh7aPM2tRe2FBBR49/DmQ85uv0r4Zxddm5TJVKT/AZNPLINDA=="/>
+        </item>
+        <item>
             <title>1.3</title>
             <pubDate>Sat, 03 Oct 2026 21:26:27 +0300</pubDate>
             <sparkle:version>5</sparkle:version>
