@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Routine</title>
+        <item>
+            <title>1.2</title>
+            <pubDate>Sat, 03 Oct 2026 21:07:25 +0300</pubDate>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.2</h3>
+<ul>
+<li><b>التحديث التلقائي</b>: يخبرك روتين حين يتوفر إصدار أحدث، وبضغطة واحدة يُنزَّل ويُثبَّت ويعيد التشغيل.</li>
+<li>الفحص مرة في اليوم، ويُطفأ من الإعدادات ← «التحديثات».</li>
+<li>لا يُرسل أي بيانات عنك أو عن جهازك.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.2.zip" length="3874732" type="application/octet-stream" sparkle:edSignature="VZTcrDpHn7H6284qadabHo6q7NkUSoOqlx20z8d1Uo15n3Zf7ojxTDQuQA+Txh+CGStsBXOOFOq3yh/J2izFDA=="/>
+        </item>
+    </channel>
+</rss>
