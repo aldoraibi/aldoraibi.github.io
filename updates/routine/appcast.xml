@@ -3,6 +3,23 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.6</title>
+            <pubDate>Sat, 03 Oct 2026 22:41:28 +0300</pubDate>
+            <sparkle:version>8</sparkle:version>
+            <sparkle:shortVersionString>1.6</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.6</h3>
+<ul>
+<li><b>الودجت بعد التحديث</b>: كان يبقى يعمل من النسخة القديمة فيفقد خياراته وإذن «التذكيرات». الآن يعيد روتين تشغيله تلقائياً مع كل تحديث.</li>
+<li>الأفكار المجدولة من الإصدار السابق وما زالت في «أفكار» تنتقل إلى قسمها المناسب.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.6.zip" length="3903912" type="application/octet-stream" sparkle:edSignature="4o/GEMmw87pB6dWqZ0KNFks8I2MiDQfmQx0ZFK5uuH0gA71sp7wQ0GNU2ZmGpdibCp3uLVBKR61Cux2a/abiCw=="/>
+        </item>
+        <item>
             <title>1.5</title>
             <pubDate>Sat, 03 Oct 2026 22:27:09 +0300</pubDate>
             <sparkle:version>7</sparkle:version>
@@ -40,23 +57,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.4.zip" length="3899073" type="application/octet-stream" sparkle:edSignature="/f1XmzezR0opVcUYXTbnDZ8Fzz5RAV7GFxV/hLh7aPM2tRe2FBBR49/DmQ85uv0r4Zxddm5TJVKT/AZNPLINDA=="/>
-        </item>
-        <item>
-            <title>1.3</title>
-            <pubDate>Sat, 03 Oct 2026 21:26:27 +0300</pubDate>
-            <sparkle:version>5</sparkle:version>
-            <sparkle:shortVersionString>1.3</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.3</h3>
-<ul>
-<li><b>الرجوع للشكل الكلاسيكي أسهل</b>: دائرة «منتصف الليل» بجانب دوائر الأنماط في «اللوحة» ترجعك للشكل الكلاسيكي بضغطة.</li>
-<li>أزرار طرق العرض في شريط «نيون الليل» صار تحتها اسمها: الشبكة، القائمة، اللوحة.</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.3.zip" length="3881564" type="application/octet-stream" sparkle:edSignature="zdtEMzzVRg521wkBQpWjZmUElwqPkkEj0Y2EQSrwz+NDk5rwNJ6E73dnPEdC8D3x8iMxX+V28cp49z0zKPMUAQ=="/>
         </item>
     </channel>
 </rss>
