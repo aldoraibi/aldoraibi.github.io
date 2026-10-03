@@ -3,6 +3,23 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.3</title>
+            <pubDate>Sat, 03 Oct 2026 21:26:27 +0300</pubDate>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>1.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.3</h3>
+<ul>
+<li><b>الرجوع للشكل الكلاسيكي أسهل</b>: دائرة «منتصف الليل» بجانب دوائر الأنماط في «اللوحة» ترجعك للشكل الكلاسيكي بضغطة.</li>
+<li>أزرار طرق العرض في شريط «نيون الليل» صار تحتها اسمها: الشبكة، القائمة، اللوحة.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.3.zip" length="3881564" type="application/octet-stream" sparkle:edSignature="zdtEMzzVRg521wkBQpWjZmUElwqPkkEj0Y2EQSrwz+NDk5rwNJ6E73dnPEdC8D3x8iMxX+V28cp49z0zKPMUAQ=="/>
+        </item>
+        <item>
             <title>1.2</title>
             <pubDate>Sat, 03 Oct 2026 21:07:25 +0300</pubDate>
             <sparkle:version>4</sparkle:version>
