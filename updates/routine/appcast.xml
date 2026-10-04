@@ -3,6 +3,22 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.8</title>
+            <pubDate>Sun, 04 Oct 2026 18:45:30 +0300</pubDate>
+            <sparkle:version>10</sparkle:version>
+            <sparkle:shortVersionString>1.8</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.8</h3>
+<ul>
+<li>الفكرة اللي فيها موعد تصل من «صندوق الأفكار» عبر اختصار <b>FikrahTime</b> بموعدها وتنبيهها مضبوطين على جوالك، حتى لو الماك مطفي. والأفكار بلا موعد عبر <b>Fikrah</b> كما كانت.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.8.zip" length="3903932" type="application/octet-stream" sparkle:edSignature="tdmz/er0znoUIT5pFRKLazLkcV+qK/PwhzxqDTA/qNAq9adTcNM54Uc9EdhWmNQrFHwxj3JeuymlkcyyyOgGDA=="/>
+        </item>
+        <item>
             <title>1.7</title>
             <pubDate>Sun, 04 Oct 2026 18:30:06 +0300</pubDate>
             <sparkle:version>9</sparkle:version>
@@ -35,26 +51,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.6.zip" length="3903912" type="application/octet-stream" sparkle:edSignature="4o/GEMmw87pB6dWqZ0KNFks8I2MiDQfmQx0ZFK5uuH0gA71sp7wQ0GNU2ZmGpdibCp3uLVBKR61Cux2a/abiCw=="/>
-        </item>
-        <item>
-            <title>1.5</title>
-            <pubDate>Sat, 03 Oct 2026 22:27:09 +0300</pubDate>
-            <sparkle:version>7</sparkle:version>
-            <sparkle:shortVersionString>1.5</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.5</h3>
-<ul>
-<li><b>الفكرة اللي فيها موعد تصير مهمة تلقائياً</b>: «اتصل على السفارة الساعة 9 ص بكرة» من «فكرة» تُجدول في وقتها، وتنتقل من «أفكار» إلى القسم المناسب (العمل، تعلّم، صحة، المنزل، أو شخصي) بدون تدخل منك.</li>
-<li>الأفكار بلا موعد تبقى في «أفكار» كما هي.</li>
-<li><b>يفهم الموعد من النص</b>: اليوم، الليلة، بكرة، بعد بكرة، أيام الأسبوع، «الساعة 9»، «9 ص/م»، «9:30»، «ونص/وربع/إلا ربع»، الصبح، العصر، المغرب، الليل — ويضبط تنبيه التذكير على الوقت.</li>
-<li>الساعة بلا ص أو م: من 1 إلى 6 مساءً، ومن 7 إلى 11 صباحاً.</li>
-<li>ما رتّبه روتين سابقاً في غير وقته المكتوب يُنقل إلى الساعة المكتوبة.</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.5.zip" length="3901635" type="application/octet-stream" sparkle:edSignature="tzUceHpqQKKy/3vV3tf20kX8epCAIyZvKLGTtUgx1iz4CBAUE9/WoG8zUw0lixZK1sqpSdD64l3E0zJmCiAWBA=="/>
         </item>
     </channel>
 </rss>
