@@ -99,8 +99,11 @@ TOOLS = {
     # ——————————————————————————————— راصد
     "rasid": {
         "icon": "rasid.webp",
-        "status": "pending",
-        "download": None, "file": None, "page": None, "source": None,
+        "status": "available",
+        "download": f"{GH}/rasid/releases/latest/download/Rasid.zip",
+        "file": "Rasid.zip",
+        "page": None,
+        "source": f"{GH}/rasid",
         "ar": {
             "name": "راصد",
             "tag": "مراقب النشاط بنظرة واحدة من شريط القوائم.",
@@ -119,7 +122,7 @@ TOOLS = {
             ],
             "privacy": "بلا شبكة إطلاقاً ولا جمع بيانات، ولا صلاحيات إدارية ولا وصول كامل للقرص. يطلب الإشعارات عند أول تنبيه فقط، والتشغيل مع الجهاز اختياري.",
             "req": [("النظام", iso("macOS 14 فأحدث"))],
-            "install": None,
+            "install": MAC_INSTALL_AR,
         },
         "en": {
             "name": "Rasid",
@@ -139,7 +142,7 @@ TOOLS = {
             ],
             "privacy": "No network, no data collection, no admin rights and no Full Disk Access. It asks for notifications only on the first alert; launch at login is optional.",
             "req": [("System", "macOS 14 or later")],
-            "install": None,
+            "install": MAC_INSTALL_EN,
         },
     },
     # ——————————————————————————————— روتين
