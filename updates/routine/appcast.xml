@@ -3,6 +3,29 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.9</title>
+            <pubDate>Mon, 05 Oct 2026 19:47:09 +0300</pubDate>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>1.9</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.9</h3>
+<ul>
+<li>أزرار النافذة (إغلاق، تصغير، تكبير) داخل رأس التطبيق، وتسحب النافذة من أي مكان فارغ.</li>
+<li>مربعات «اللوحة» تستجيب للنقر في عرض الأسبوع، ووقت كل مهمة مكتوب تحت اسمها وتحت كل مربع.</li>
+<li>التقدّم والحالة وتحليل الأقسام فوق، مع أرقام الإنجاز والمهام.</li>
+<li>الألوان تتبع جواب «مزاجك»: ثقيل وفاتر هادئة، عادي أبيض، طيب وممتاز صارخة.</li>
+<li>«المنجز» يفتح قائمة إنجازاتك، و«الوقت الفارغ» يعرض فراغاتك وتضيف منها مهمة.</li>
+<li>لوح الشريط العلوي يأخذ شكل العرض المختار: لوحة أو قائمة أو شبكة.</li>
+<li>القائمة تعرض العنوان والملاحظات كاملة، والتوضيحات عند المرور مطفأة (تشغّلها من الإعدادات).</li>
+<li>الفكرة الجديدة بلا موعد تأخذ أقرب فراغ اليوم أو غداً، وإلا تبقى ظاهرة في «بلا موعد».</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.9.zip" length="3985347" type="application/octet-stream" sparkle:edSignature="F45p7F4bNrl8tJpkocvFmSqtg4bDbu20Hr9ezdW5HS4A7cmFvT7zoAC3jdAMqUS7YnQF83c4FsxNGyTWo9klCw=="/>
+        </item>
+        <item>
             <title>1.8</title>
             <pubDate>Sun, 04 Oct 2026 18:45:30 +0300</pubDate>
             <sparkle:version>10</sparkle:version>
@@ -34,23 +57,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.7.zip" length="3903904" type="application/octet-stream" sparkle:edSignature="3uOaXSs7t5i+cgdSaRnIe5sFWWwSplXzvrYZkfm2lm7nrfZL8/a1GZmW5RNslKj/5x0usTCTdYQ45WR1JMuEBA=="/>
-        </item>
-        <item>
-            <title>1.6</title>
-            <pubDate>Sat, 03 Oct 2026 22:41:28 +0300</pubDate>
-            <sparkle:version>8</sparkle:version>
-            <sparkle:shortVersionString>1.6</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.6</h3>
-<ul>
-<li><b>الودجت بعد التحديث</b>: كان يبقى يعمل من النسخة القديمة فيفقد خياراته وإذن «التذكيرات». الآن يعيد روتين تشغيله تلقائياً مع كل تحديث.</li>
-<li>الأفكار المجدولة من الإصدار السابق وما زالت في «أفكار» تنتقل إلى قسمها المناسب.</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.6.zip" length="3903912" type="application/octet-stream" sparkle:edSignature="4o/GEMmw87pB6dWqZ0KNFks8I2MiDQfmQx0ZFK5uuH0gA71sp7wQ0GNU2ZmGpdibCp3uLVBKR61Cux2a/abiCw=="/>
         </item>
     </channel>
 </rss>
