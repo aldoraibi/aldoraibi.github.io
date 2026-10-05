@@ -3,6 +3,24 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.11</title>
+            <pubDate>Mon, 05 Oct 2026 20:45:21 +0300</pubDate>
+            <sparkle:version>13</sparkle:version>
+            <sparkle:shortVersionString>1.11</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.11</h3>
+<ul>
+<li>طاقتك تحدد قوة الألوان: «مزاجك» يختار النبرة (هادئة، بيضاء، صارخة)، و«طاقتك» تجعلها خافتة أو متوسطة أو كاملة.</li>
+<li>النقر على مربع يوم في «اللوحة» يعلّم اليوم نفسه — في النافذة وفي لوح الشريط العلوي.</li>
+<li>«اللوحة» في عرض اليوم تعرض يومك وحده بمهامه وأوقاتها.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.11.zip" length="3986033" type="application/octet-stream" sparkle:edSignature="tJfw69uFK1T5mjfNv1SJa5UVhFYsvTSO+1C+uKV65LkFIsK6E47LvVwS6KRllQ51CcTOg2cO+KzB75pst7UQBw=="/>
+        </item>
+        <item>
             <title>1.10</title>
             <pubDate>Mon, 05 Oct 2026 20:32:20 +0300</pubDate>
             <sparkle:version>12</sparkle:version>
@@ -42,22 +60,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.9.zip" length="3985347" type="application/octet-stream" sparkle:edSignature="F45p7F4bNrl8tJpkocvFmSqtg4bDbu20Hr9ezdW5HS4A7cmFvT7zoAC3jdAMqUS7YnQF83c4FsxNGyTWo9klCw=="/>
-        </item>
-        <item>
-            <title>1.8</title>
-            <pubDate>Sun, 04 Oct 2026 18:45:30 +0300</pubDate>
-            <sparkle:version>10</sparkle:version>
-            <sparkle:shortVersionString>1.8</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.8</h3>
-<ul>
-<li>الفكرة اللي فيها موعد تصل من «صندوق الأفكار» عبر اختصار <b>FikrahTime</b> بموعدها وتنبيهها مضبوطين على جوالك، حتى لو الماك مطفي. والأفكار بلا موعد عبر <b>Fikrah</b> كما كانت.</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.8.zip" length="3903932" type="application/octet-stream" sparkle:edSignature="tdmz/er0znoUIT5pFRKLazLkcV+qK/PwhzxqDTA/qNAq9adTcNM54Uc9EdhWmNQrFHwxj3JeuymlkcyyyOgGDA=="/>
         </item>
     </channel>
 </rss>
