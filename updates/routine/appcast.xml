@@ -3,6 +3,24 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.13</title>
+            <pubDate>Mon, 05 Oct 2026 21:17:39 +0300</pubDate>
+            <sparkle:version>15</sparkle:version>
+            <sparkle:shortVersionString>1.13</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.13</h3>
+<ul>
+<li>في «اللوحة»: اسحب مربع المهمة وأفلته على يوم آخر (أي خانة في عمود ذلك اليوم أو رأسه) لتنتقل إليه بساعتها. ومهام «بلا موعد» تُسحب إلى اللوحة كذلك.</li>
+<li>انقر المربع بالزر الأيمن: إلى الغد، بعد يومين، الأسبوع القادم، أو «انقلها إلى الساعة» لتختار ساعة جديدة.</li>
+<li>الجدولة التلقائية إلى أقرب فراغ، وألوان المزاج والطاقة، ونقر اللوحة الدقيق.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.13.zip" length="4000326" type="application/octet-stream" sparkle:edSignature="8o15tVYPtpSc7Vivyc7aJ2dJb1XxAewoeZWmUoM6/ZnImF9L/QfQdmm2IHg08jzVBXlT2a3rMwgNYQ74V7zUAQ=="/>
+        </item>
+        <item>
             <title>1.12</title>
             <pubDate>Mon, 05 Oct 2026 21:07:33 +0300</pubDate>
             <sparkle:version>14</sparkle:version>
@@ -37,24 +55,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.11.zip" length="3986033" type="application/octet-stream" sparkle:edSignature="tJfw69uFK1T5mjfNv1SJa5UVhFYsvTSO+1C+uKV65LkFIsK6E47LvVwS6KRllQ51CcTOg2cO+KzB75pst7UQBw=="/>
-        </item>
-        <item>
-            <title>1.10</title>
-            <pubDate>Mon, 05 Oct 2026 20:32:20 +0300</pubDate>
-            <sparkle:version>12</sparkle:version>
-            <sparkle:shortVersionString>1.10</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.10</h3>
-<ul>
-<li>النقر على مربع يوم في «اللوحة» يعلّم اليوم نفسه — في النافذة وفي لوح الشريط العلوي (كان يصيب اليوم المجاور).</li>
-<li>«اللوحة» في عرض اليوم تعرض يومك وحده بمهامه وأوقاتها.</li>
-<li>القوائم تتمرّر بلا شريط تمرير ظاهر، فلا تنزاح مناطق النقر.</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.10.zip" length="3985792" type="application/octet-stream" sparkle:edSignature="1S8gS+TCWBsbvfUM+J1TYq7aO63Quk7osB6ufpGF2uNNeqKmlqIaLeMCe4CNyuWqpDNAn7fTVrG8pw4VVklIBw=="/>
         </item>
     </channel>
 </rss>
