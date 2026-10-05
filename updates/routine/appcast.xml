@@ -3,6 +3,24 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.10</title>
+            <pubDate>Mon, 05 Oct 2026 20:32:20 +0300</pubDate>
+            <sparkle:version>12</sparkle:version>
+            <sparkle:shortVersionString>1.10</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.10</h3>
+<ul>
+<li>النقر على مربع يوم في «اللوحة» يعلّم اليوم نفسه — في النافذة وفي لوح الشريط العلوي (كان يصيب اليوم المجاور).</li>
+<li>«اللوحة» في عرض اليوم تعرض يومك وحده بمهامه وأوقاتها.</li>
+<li>القوائم تتمرّر بلا شريط تمرير ظاهر، فلا تنزاح مناطق النقر.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.10.zip" length="3985792" type="application/octet-stream" sparkle:edSignature="1S8gS+TCWBsbvfUM+J1TYq7aO63Quk7osB6ufpGF2uNNeqKmlqIaLeMCe4CNyuWqpDNAn7fTVrG8pw4VVklIBw=="/>
+        </item>
+        <item>
             <title>1.9</title>
             <pubDate>Mon, 05 Oct 2026 19:47:09 +0300</pubDate>
             <sparkle:version>11</sparkle:version>
@@ -40,23 +58,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.8.zip" length="3903932" type="application/octet-stream" sparkle:edSignature="tdmz/er0znoUIT5pFRKLazLkcV+qK/PwhzxqDTA/qNAq9adTcNM54Uc9EdhWmNQrFHwxj3JeuymlkcyyyOgGDA=="/>
-        </item>
-        <item>
-            <title>1.7</title>
-            <pubDate>Sun, 04 Oct 2026 18:30:06 +0300</pubDate>
-            <sparkle:version>9</sparkle:version>
-            <sparkle:shortVersionString>1.7</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.7</h3>
-<ul>
-<li>يعمل مع اختصار <b>Fikrah2</b> الجديد: الفكرة اللي فيها موعد تصل من «صندوق الأفكار» بموعدها وتنبيهها مضبوطين، حتى لو الماك مطفي.</li>
-<li>تحديث نصوص الإعدادات.</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.7.zip" length="3903904" type="application/octet-stream" sparkle:edSignature="3uOaXSs7t5i+cgdSaRnIe5sFWWwSplXzvrYZkfm2lm7nrfZL8/a1GZmW5RNslKj/5x0usTCTdYQ45WR1JMuEBA=="/>
         </item>
     </channel>
 </rss>
