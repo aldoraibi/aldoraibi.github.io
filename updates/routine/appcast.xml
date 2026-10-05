@@ -3,6 +3,24 @@
     <channel>
         <title>Routine</title>
         <item>
+            <title>1.12</title>
+            <pubDate>Mon, 05 Oct 2026 21:07:33 +0300</pubDate>
+            <sparkle:version>14</sparkle:version>
+            <sparkle:shortVersionString>1.12</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
+<h3>الجديد في روتين 1.12</h3>
+<ul>
+<li>الجدولة التلقائية تأخذ أقرب فراغ: ما يصلك من «صندوق الأفكار» أو «التذكيرات» اليوم يُجدول اليوم إن كان فيه متسع في «وقت المهام»، لا في يوم أفرغ لاحقاً. وزر «رتّب المهام على الأيام» كذلك.</li>
+<li>طاقتك تحدد قوة الألوان داخل نبرة مزاجك.</li>
+<li>النقر في «اللوحة» يصيب اليوم الصحيح، ولوحة لعرض اليوم.</li>
+</ul>
+</div>
+]]></description>
+            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.12.zip" length="3986779" type="application/octet-stream" sparkle:edSignature="kZGDP/qU2FsbPsiyGQUqILBPIj//LVft+VP9uS1nAf/iazN5Ij7WbXPkIUb7+bjgJbFVEx5y84shsEgSZwNsBw=="/>
+        </item>
+        <item>
             <title>1.11</title>
             <pubDate>Mon, 05 Oct 2026 20:45:21 +0300</pubDate>
             <sparkle:version>13</sparkle:version>
@@ -37,29 +55,6 @@
 </div>
 ]]></description>
             <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.10.zip" length="3985792" type="application/octet-stream" sparkle:edSignature="1S8gS+TCWBsbvfUM+J1TYq7aO63Quk7osB6ufpGF2uNNeqKmlqIaLeMCe4CNyuWqpDNAn7fTVrG8pw4VVklIBw=="/>
-        </item>
-        <item>
-            <title>1.9</title>
-            <pubDate>Mon, 05 Oct 2026 19:47:09 +0300</pubDate>
-            <sparkle:version>11</sparkle:version>
-            <sparkle:shortVersionString>1.9</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<div dir="rtl" style="font-family: 'thmanyah sans', -apple-system, sans-serif; line-height: 1.7">
-<h3>الجديد في روتين 1.9</h3>
-<ul>
-<li>أزرار النافذة (إغلاق، تصغير، تكبير) داخل رأس التطبيق، وتسحب النافذة من أي مكان فارغ.</li>
-<li>مربعات «اللوحة» تستجيب للنقر في عرض الأسبوع، ووقت كل مهمة مكتوب تحت اسمها وتحت كل مربع.</li>
-<li>التقدّم والحالة وتحليل الأقسام فوق، مع أرقام الإنجاز والمهام.</li>
-<li>الألوان تتبع جواب «مزاجك»: ثقيل وفاتر هادئة، عادي أبيض، طيب وممتاز صارخة.</li>
-<li>«المنجز» يفتح قائمة إنجازاتك، و«الوقت الفارغ» يعرض فراغاتك وتضيف منها مهمة.</li>
-<li>لوح الشريط العلوي يأخذ شكل العرض المختار: لوحة أو قائمة أو شبكة.</li>
-<li>القائمة تعرض العنوان والملاحظات كاملة، والتوضيحات عند المرور مطفأة (تشغّلها من الإعدادات).</li>
-<li>الفكرة الجديدة بلا موعد تأخذ أقرب فراغ اليوم أو غداً، وإلا تبقى ظاهرة في «بلا موعد».</li>
-</ul>
-</div>
-]]></description>
-            <enclosure url="https://aldoraibi.github.io/updates/routine/Routine-1.9.zip" length="3985347" type="application/octet-stream" sparkle:edSignature="F45p7F4bNrl8tJpkocvFmSqtg4bDbu20Hr9ezdW5HS4A7cmFvT7zoAC3jdAMqUS7YnQF83c4FsxNGyTWo9klCw=="/>
         </item>
     </channel>
 </rss>
