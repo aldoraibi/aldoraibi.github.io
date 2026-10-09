@@ -65,7 +65,8 @@ UI = {
         "install": "التثبيت على الماك", "credit": "شكر وتقدير", "others": "أدوات أخرى",
         "by": "مطوّر بواسطة", "nf_title": "الصفحة غير موجودة", "nf_body": "ربما تغيّر الرابط. كل الأدوات في الصفحة الرئيسية.",
         "home": "الرئيسية", "icon_alt": "أيقونة {}",
-        "yt": "تابع القناة في يوتيوب", "learn": "اعرف المزيد", "get": "حمّل", "next_h": "في الطريق", "next_p": "أدوات أستخدمها يومياً، وتُفتح للتحميل قريباً.",
+        "yt": "تابع القناة في يوتيوب", "theme": "المظهر", "theme_auto": "حسب الجهاز", "theme_light": "فاتح", "theme_dark": "ليلي",
+        "statement": ["أدوات", "صغيرة.", "تعمل", "دون", "اتصال.", "وبالعربية", "أولاً."], "learn": "اعرف المزيد", "get": "حمّل", "next_h": "في الطريق", "next_p": "أدوات أستخدمها يومياً، وتُفتح للتحميل قريباً.",
         "share_h": "تعرف أحداً يحتاجها؟", "nav_tools": "الأدوات", "nav_next": "قريباً", "nav_share": "شارك", "nav_how": "كيف أبنيها",
     },
     "en": {
@@ -99,7 +100,8 @@ UI = {
         "install": "Installing on Mac", "credit": "Credits", "others": "More tools",
         "by": "Developed by", "nf_title": "Page not found", "nf_body": "The link may have changed. Every tool is on the home page.",
         "home": "Home", "icon_alt": "{} icon",
-        "yt": "Follow on YouTube", "learn": "Learn more", "get": "Download", "next_h": "On the way", "next_p": "Tools I use every day, opening for download soon.",
+        "yt": "Follow on YouTube", "theme": "Appearance", "theme_auto": "Match device", "theme_light": "Light", "theme_dark": "Dark",
+        "statement": ["Small", "tools.", "Working", "offline.", "Arabic", "first."], "learn": "Learn more", "get": "Download", "next_h": "On the way", "next_p": "Tools I use every day, opening for download soon.",
         "share_h": "Know someone who needs it?", "nav_tools": "Tools", "nav_next": "Coming soon", "nav_share": "Share", "nav_how": "How I build",
     },
 }
@@ -127,6 +129,11 @@ P_ICONS = [
     # العربية أولاً: حرف ع داخل إطار
     '<svg viewBox="0 0 28 28" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="21" height="21" rx="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M17 10.2c-.9-1.3-3.6-1.4-4.4.3-.6 1.4.6 2.7 2.4 2.7-2.9 0-4.6 1.6-4.6 3.5 0 2.2 2.4 3.3 5.1 2.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
 ]
+
+
+# لون خاص لكل أداة: يلوّن بلاطتها بدرجة خفيفة في الفاتح وأعمق في الليلي
+TINT = {"mizan": "#5e5ce6", "rasid": "#30d158", "maseh": "#ff9f0a", "routine": "#0a84ff", "saaa": "#ff453a",
+        "mulaqqin": "#bf5af2", "fikra": "#ffd60a", "sandooq": "#64d2ff", "nasikh": "#a2845e", "hafiz": "#ff375f"}
 
 
 def prefix(lang):
@@ -160,8 +167,10 @@ def head(lang, title, desc, path_ar, path_en):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
-<meta name="color-scheme" content="light">
-<meta name="theme-color" content="#fafafc">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fafafc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161617" media="(prefers-color-scheme: dark)">
+<script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 <meta name="referrer" content="no-referrer">
 <link rel="canonical" href="{canonical}">
 <link rel="alternate" hreflang="ar" href="{SITE}{path_ar}">
@@ -189,6 +198,10 @@ def gnav(lang, path_ar, path_en):
     lis = "".join(f'<li><a href="{h}#{a}">{u[k]}</a></li>' for k, a in links)
     return (f'<nav class="gnav" aria-label="{"التنقل" if lang == "ar" else "Navigation"}"><div class="gnav-in wrap">'
             f'<a class="logo" href="{h}" aria-label="{u["home"]}">{LOGO}</a><ul>{lis}</ul>'
+            f'<button type="button" class="theme-btn js-theme" data-l-auto="{u["theme_auto"]}" data-l-light="{u["theme_light"]}" data-l-dark="{u["theme_dark"]}" aria-label="{u["theme"]}: {u["theme_auto"]}" title="{u["theme"]}">'
+            f'<svg class="i-auto" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></svg>'
+            f'<svg class="i-light" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+            f'<svg class="i-dark" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5 5.8 5.8 0 1 0 13.5 9.6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>'
             f'<a class="lang" href="{href}" hreflang="{other}" lang="{other}">{IC["lang"]}<span>{u["switch"]}</span></a>'
             f'</div></nav>\n')
 
@@ -226,7 +239,7 @@ def grid_tile(lang, slug, dark=False):
     t, u = TOOLS[slug], UI[lang]
     d = t[lang]
     sr = f'<span class="sr"> — {u["stamp"]}</span>' if is_locked(slug) else ""
-    return (f'<li><a class="gtile reveal{" dark" if dark else ""}" href="{tool_url(lang, slug)}">'
+    return (f'<li><a class="gtile reveal" style="--t:{TINT.get(slug, "#8e8e93")}" href="{tool_url(lang, slug)}">'
             f'<h3 class="tname">{e(d["name"])}{sr}</h3><p class="sub">{e(d["tag"])}</p>'
             f'<span class="glink"><span>{u["learn"]}</span>{IC["arrow"]}</span>'
             f'{art(slug, lang)}</a></li>')
@@ -246,7 +259,7 @@ def feature(lang, slug, tone):
     if t.get("download"):
         btns += (f'<a class="btn btn-ghost" href="{t["download"]}" data-gc="download-{slug}">'
                  f'{IC["down"]}<span>{u["get"]}</span></a>')
-    return (f'<section class="feature {tone}" aria-labelledby="f-{slug}"><div class="wrap reveal">'
+    return (f'<section class="feature" style="--t:{TINT.get(slug, "#8e8e93")}" data-scroll aria-labelledby="f-{slug}"><div class="wrap ftext">'
             f'<h2 class="tname" id="f-{slug}">{e(d["name"])}</h2><p class="sub">{e(d["tag"])}</p>'
             f'<div class="ctas">{btns}</div></div>{art(slug, lang, stamp=False)}</section>')
 
@@ -274,14 +287,20 @@ def page_home(lang):
     open_slugs = [s for s in slugs if not is_locked(s)]
     next_slugs = [s for s in slugs if is_locked(s)]
     tones = ["dark", "gray", ""]
+    words = u["statement"]
+    stmt_label = " ".join(words)
+    stmt = "".join(f'<span style="--i:{i};--n:{len(words)}">{e(w)}</span> ' for i, w in enumerate(words))
     feats = "\n".join(feature(lang, s, tones[i % 3]) for i, s in enumerate(open_slugs))
     principles = "".join(
         f'<div class="principle reveal">{P_ICONS[i + 1]}<h3>{e(h)}</h3><p>{e(p)}</p></div>'
         for i, (h, p) in enumerate(u["p"]))
     return head(lang, u["title"], u["desc"], "/", "/en/") + gnav(lang, "/", "/en/") + f"""<main id="main">
-<header class="hero-id">
-  <div class="mark" role="img" aria-label="{'شعار' if lang == 'ar' else 'Logo'} YD">{LOGO}</div>
-  {name_mark(lang)}
+<header class="hero-scene" data-scroll="hero">
+  <div class="hero-sticky">
+    <div class="mark" role="img" aria-label="{'شعار' if lang == 'ar' else 'Logo'} YD">{LOGO}</div>
+    <div class="hero-name">{name_mark(lang)}</div>
+    <a class="scroll-cue" href="#tools" aria-label="{u['tools']}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
 </header>
 <div id="tools">
 <h2 class="sr">{u['tools']}</h2>
@@ -303,6 +322,9 @@ def page_home(lang):
     </div>
     <p class="suggest-link"><a data-gc="suggest" href="{e(x_intent(u['suggest_text']))}">{IC['bulb']}<span>{u['suggest_link']}</span></a></p>
   </div>
+</section>
+<section class="statement-scene" data-scroll="statement" aria-label="{e(stmt_label)}">
+  <div class="statement-sticky"><p class="statement" aria-hidden="true">{stmt}</p></div>
 </section>
 <section class="sec dark" id="how" aria-labelledby="g-principles">
   <div class="wrap">
@@ -338,95 +360,141 @@ def chips(lang, slug):
     return "".join(out)
 
 
+BUY = {
+    "ar": {"free": "مجاني", "ver": ("النسخة.", "اختر ما يناسبك."), "feat": ("المزايا.", "ماذا ستحصل عليه؟"),
+           "about": ("عن الأداة.", "باختصار."), "priv": ("الخصوصية.", "ماذا يصل إليه؟"), "req": ("المتطلبات.", "ما تحتاجه لتشغيله."),
+           "inst": ("التثبيت.", "خطوات بسيطة."), "credit": ("شكر وتقدير.", ""),
+           "mac": "تطبيق الماك", "web": "نسخة الويب", "web_sub": "تعمل في المتصفح، بلا تثبيت", "soon_opt": "غير متاح للتحميل بعد",
+           "ready": "{} في انتظارك.", "compare": "أي أداة تناسبك؟", "prev": "السابق", "next": "التالي", "links": "روابط"},
+    "en": {"free": "Free", "ver": ("Version.", "Pick what suits you."), "feat": ("Features.", "What you get."),
+           "about": ("About.", "In short."), "priv": ("Privacy.", "What it can access."), "req": ("Requirements.", "What you need to run it."),
+           "inst": ("Installation.", "A few simple steps."), "credit": ("Credits.", ""),
+           "mac": "Mac app", "web": "Web version", "web_sub": "Runs in your browser, nothing to install", "soon_opt": "Not available to download yet",
+           "ready": "{} is ready for you.", "compare": "Which tool is right for you?", "prev": "Previous", "next": "Next", "links": "Links"},
+}
+
+
+def step_head(pair):
+    a, b = pair
+    return f'<h2 class="step-h"><b>{e(a)}</b> <span>{e(b)}</span></h2>' if b else f'<h2 class="step-h"><b>{e(a)}</b></h2>'
+
+
 def page_tool(lang, slug):
-    t, u = TOOLS[slug], UI[lang]
+    t, u, B = TOOLS[slug], UI[lang], BUY[lang]
     d = t[lang]
     path_ar, path_en = tool_url("ar", slug), tool_url("en", slug)
     st = t["status"]
+    tint = TINT.get(slug, "#8e8e93")
 
-    # الأزرار: التحميل المباشر أولاً، ثم التجربة أو صفحة الأداة، ثم الدليل (زر «المصدر» ملغى بطلب يحيى)
-    btns = []
+    # خيارات النسخة (بطاقات اختيار): التطبيق المحمّل، ونسخة الويب
+    opts = []
     if t.get("download"):
-        btns.append(f'<a class="btn btn-primary" href="{t["download"]}" data-gc="download-{slug}">{IC["down"]}'
-                    f'<span>{u["download"]} {e(t["file"])}</span></a>')
+        opts.append({"id": "mac", "label": B["mac"], "sub": t["file"], "href": t["download"],
+                     "cta": f'{u["download"]} {t["file"]}', "gc": f"download-{slug}", "icon": "down"})
     if t.get("try"):
-        cls = "btn-ghost" if t.get("download") else "btn-primary"
-        label = u["try"] if t.get("download") else u["open"]
-        btns.append(f'<a class="btn {cls}" href="{t["try"]}">{IC["ext"]}<span>{label}</span></a>')
-    if t.get("page"):
-        btns.append(f'<a class="btn btn-ghost" href="{t["page"]}">{IC["ext"]}<span>{u["page"]}</span></a>')
-    if t.get("guide"):
-        btns.append(f'<a class="btn btn-ghost" href="{t["guide"]}"' + (' hreflang="ar"' if lang == "en" else "")
-                    + f'>{IC["book"]}<span>{u["guide"]}</span></a>')
-    if btns:
-        note = f'<p class="note">{u["direct"]}</p>' if t.get("download") else ""
-        if d.get("note"):
-            note += f'<p class="note">{e(d["note"])}</p>'
-        actions = f'<div class="ctas">{"".join(btns)}</div>{note}'
+        opts.append({"id": "web", "label": B["web"], "sub": B["web_sub"], "href": t["try"],
+                     "cta": u["try"] if t.get("download") else u["open"], "gc": f"try-{slug}", "icon": "ext"})
+    if opts:
+        cards = "".join(
+            f'<label class="opt"><input type="radio" name="ver" value="{o["id"]}"{" checked" if i == 0 else ""} '
+            f'data-href="{e(o["href"])}" data-cta="{e(o["cta"])}" data-gc="{o["gc"]}" data-icon="{o["icon"]}">'
+            f'<span class="opt-in"><span class="opt-l">{e(o["label"])}</span><span class="opt-s">{e(o["sub"])}</span></span>'
+            f'<span class="opt-p">{B["free"]}</span></label>' for i, o in enumerate(opts))
+        first = opts[0]
+        cta = (f'<a class="btn btn-primary btn-lg js-cta" href="{e(first["href"])}" data-gc="{first["gc"]}">'
+               f'{IC[first["icon"]]}<span>{e(first["cta"])}</span></a>')
+        ver_html = f'<div class="opts" role="radiogroup">{cards}</div>'
     else:
-        actions = f'<p class="pending">{u["pending_note"] if st == "pending" else u["soon_note"]}</p>'
+        msg = u["pending_note"] if st == "pending" else u["soon_note"]
+        ver_html = (f'<div class="opts"><div class="opt is-off"><span class="opt-in"><span class="opt-l">{u["status"][st]}</span>'
+                    f'<span class="opt-s">{e(msg)}</span></span></div></div>')
+        cta = f'<span class="btn btn-off btn-lg">{u["status"][st]}</span>'
 
-    # الشريط الخاص بالأداة
+    extra_links = []
+    if t.get("page"):
+        extra_links.append(f'<a href="{t["page"]}">{IC["ext"]}<span>{u["page"]}</span></a>')
+    if t.get("guide"):
+        extra_links.append(f'<a href="{t["guide"]}"' + (' hreflang="ar"' if lang == "en" else "") + f'>{IC["book"]}<span>{u["guide"]}</span></a>')
+    links_html = f'<p class="xlinks">{"".join(extra_links)}</p>' if extra_links else ""
+    notes = ""
     if t.get("download"):
-        lcta = f'<a class="btn btn-primary btn-sm" href="{t["download"]}" data-gc="download-{slug}">{u["get"]}</a>'
-    elif t.get("try"):
-        lcta = f'<a class="btn btn-primary btn-sm" href="{t["try"]}">{u["open"]}</a>'
-    else:
-        lcta = f'<span class="soon-tag">{u["status"][st]}</span>'
-    lnav = (f'<nav class="lnav" aria-label="{e(d["name"])}"><div class="lnav-in wrap">'
+        notes += f'<p class="note">{u["direct"]}</p>'
+    if d.get("note"):
+        notes += f'<p class="note">{e(d["note"])}</p>'
+
+    # معرض الصور على الجانب: الأيقونة ثم المزايا الرئيسية شرائح
+    slides = [f'<div class="slide slide-icon"><img src="/assets/icons/{t["icon"]}" alt="{e(u["icon_alt"].format(d["name"]))}" width="256" height="256" decoding="async"></div>']
+    for i, f in enumerate(d["feats"]):
+        slides.append(f'<div class="slide slide-text"><span class="num">{i + 1:02d}</span><p>{e(f)}</p></div>')
+    dots = "".join(f'<button type="button" class="dot" aria-label="{i + 1}"></button>' for i in range(len(slides)))
+    gallery = (f'<div class="gallery js-gallery" style="--t:{tint}">'
+               f'<div class="slides" tabindex="0">{"".join(slides)}</div>'
+               f'<button type="button" class="gnav-btn prev" aria-label="{B["prev"]}">{IC["back"]}</button>'
+               f'<button type="button" class="gnav-btn next" aria-label="{B["next"]}">{IC["arrow"]}</button>'
+               f'<div class="dots">{dots}</div></div>')
+
+    feats = "".join(f"<li>{e(f)}</li>" for f in d["feats"] + d.get("more", []))
+    kv = "".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in d["req"])
+    steps = [
+        f'<section class="step">{step_head(B["ver"])}{ver_html}{notes}{links_html}</section>',
+        f'<section class="step">{step_head(B["about"])}<p class="step-p">{e(d["about"])}</p></section>',
+        f'<section class="step">{step_head(B["feat"])}<ul class="checks">{feats}</ul></section>',
+        f'<section class="step">{step_head(B["priv"])}<div class="box">{d["privacy"]}</div></section>',
+        f'<section class="step">{step_head(B["req"])}<dl class="kv box">{kv}</dl></section>',
+    ]
+    if d.get("install"):
+        li = "".join(f"<li>{e(s)}</li>" for s in d["install"])
+        title = d.get("install_title")
+        steps.append(f'<section class="step">{step_head((title, "") if title else B["inst"])}<ol class="steps">{li}</ol></section>')
+    for sec_title, sec_html in d.get("extra", []):
+        steps.append(f'<section class="step">{step_head((sec_title, ""))}<p class="step-p">{sec_html}</p></section>')
+    if d.get("credit"):
+        steps.append(f'<section class="step">{step_head(B["credit"])}<p class="step-p">{d["credit"]}</p></section>')
+
+    # شريط الأداة العلوي
+    lcta = (f'<a class="btn btn-primary btn-sm js-cta-mini" href="{e(opts[0]["href"])}" data-gc="{opts[0]["gc"]}">{u["get"] if t.get("download") else u["open"]}</a>'
+            if opts else f'<span class="soon-tag">{u["status"][st]}</span>')
+    lnav = (f'<nav class="lnav" aria-label="{e(d["name"])}"><div class="lnav-in wide">'
             f'<a class="ltitle" href="#main">{e(d["name"])}</a>'
             f'<div class="lnav-r"><a class="back" href="{home_url(lang)}">{IC["back"]}<span>{u["back"]}</span></a>{lcta}</div>'
             f'</div></nav>\n')
 
-    feats = d["feats"]
-    cards = "".join(f'<div class="card reveal"><span class="num">{i + 1:02d}</span>{e(f)}</div>' for i, f in enumerate(feats))
-    more = "".join(f"<li>{e(m)}</li>" for m in d.get("more", []))
-    more_html = f'<ul class="list-cards">{more}</ul>' if more else ""
-
-    sections = [f"""<section class="sec gray" aria-labelledby="s-feats">
-  <div class="wrap"><h2 class="h2 reveal" id="s-feats">{u['feats']}</h2>
-  <div class="cards">{cards}</div>{more_html}</div>
-</section>""", f"""<section class="sec dark about-sec" aria-labelledby="s-about">
-  <div class="wrap reveal"><p class="eyebrow" id="s-about">{u['about']}</p><p class="lead">{e(d['about'])}</p></div>
-</section>"""]
-    if d.get("install"):
-        steps = "".join(f"<li>{e(s)}</li>" for s in d["install"])
-        sections.append(f"""<section class="sec" aria-labelledby="s-install">
-  <div class="wrap"><h2 class="h2 reveal" id="s-install">{e(d.get('install_title', u['install']))}</h2><ol class="steps">{steps}</ol></div>
-</section>""")
-    for i, (sec_title, sec_html) in enumerate(d.get("extra", [])):
-        sections.append(f"""<section class="sec{' gray' if i % 2 == 0 else ''}">
-  <div class="wrap extra reveal"><h2 class="h2">{e(sec_title)}</h2><p>{sec_html}</p></div>
-</section>""")
-    kv = "".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in d["req"])
-    facts = f'<div class="fact"><h3>{u["details"]}</h3><dl class="kv">{kv}</dl></div>'
-    facts += f'<div class="fact"><h3>{u["privacy"]}</h3><p>{d["privacy"]}</p></div>'
-    if d.get("credit"):
-        facts += f'<div class="fact"><h3>{u["credit"]}</h3><p>{d["credit"]}</p></div>'
-    sections.append(f"""<section class="sec gray" aria-labelledby="s-facts">
-  <div class="wrap"><h2 class="h2 reveal" id="s-facts">{u['details']}</h2><div class="facts">{facts}</div></div>
-</section>""")
-    sections.append(f"""<section class="sec" aria-labelledby="s-share">
-  <div class="wrap reveal"><h2 class="h2" id="s-share">{u['share_h']}</h2>{share_row(lang, slug)}</div>
-</section>""")
-
-    others = [s for s in all_slugs() if s != slug]
-    others_html = (f'<section class="grid-sec" aria-labelledby="o-h"><div class="grid-head wrap"><h2 class="h2" id="o-h">{u["others"]}</h2></div>'
-                   f'<div class="wide">{grid(lang, others)}</div></section>')
+    # قارن مع أدوات المجموعة نفسها
+    grp = next(g for g in GROUPS if slug in g["tools"])
+    cmp_slugs = grp["tools"][:4]
+    cols = []
+    for s in cmp_slugs:
+        ts, ds = TOOLS[s], TOOLS[s][lang]
+        chipsx = "".join(f'<span class="chip">{e(p)}</span>' for p in ds["platform"])
+        fl = "".join(f"<li>{e(f)}</li>" for f in ds["feats"])
+        state = u["status"][ts["status"]] if not is_locked(s) else u["stamp"]
+        cols.append(f'<div class="ccol{" is-cur" if s == slug else ""}"><img src="/assets/icons/{ts["icon"]}" alt="" width="96" height="96" loading="lazy" decoding="async">'
+                    f'<h3>{e(ds["name"])}</h3><p class="ctag">{e(ds["tag"])}</p><p class="cstate">{state}</p>'
+                    f'<a class="btn btn-ghost btn-sm" href="{tool_url(lang, s)}">{u["learn"]}</a>'
+                    f'<div class="cchips">{chipsx}</div><ul class="cfeats">{fl}</ul></div>')
+    compare = (f'<section class="sec gray compare-sec" aria-labelledby="s-cmp"><div class="wide">'
+               f'<h2 class="h2 reveal" id="s-cmp">{B["compare"]}</h2>'
+               f'<div class="compare" style="--cols:{len(cols)}">{"".join(cols)}</div></div></section>')
 
     title = f'{d["name"]} — {d["tag"]}'
     return head(lang, title, d["tag"], path_ar, path_en) + gnav(lang, path_ar, path_en) + lnav + f"""<main id="main">
-<section class="p-hero">
-  <div class="wrap">
-    <div class="icon">{f'<img src="/assets/icons/{t["icon"]}" alt="{e(u["icon_alt"].format(d["name"]))}" width="256" height="256" decoding="async">'}</div>
-    <h1 class="headline">{e(d['name'])}</h1>
-    <p class="sub">{e(d['tag'])}</p>
-    <div class="chips">{chips(lang, slug)}</div>
-    {actions}
+<section class="buy-head wide">
+  <p class="eyebrow-new">{u["status"][st]}</p>
+  <h1 class="buy-title">{e(d['name'])}</h1>
+  <p class="buy-tag">{e(d['tag'])}</p>
+  <p class="buy-price">{B['free']}</p>
+</section>
+<section class="buy wide">
+  <div class="buy-media">{gallery}</div>
+  <div class="buy-steps">{''.join(steps)}</div>
+</section>
+<section class="summary" style="--t:{tint}">
+  <div class="wide summary-in">
+    <div><h2 class="h2">{e(B['ready'].format(d['name']))}</h2><p class="sub muted">{e(d['tag'])}</p></div>
+    <div class="summary-cta"><p class="buy-price">{B['free']}</p>{cta}<div class="share-wrap">{share_row(lang, slug)}</div></div>
   </div>
 </section>
-{chr(10).join(sections)}
-{others_html}
+{compare}
 </main>
 """ + footer(lang)
 
