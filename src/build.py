@@ -9,6 +9,7 @@ import html
 import os
 import re
 import urllib.parse
+import hashlib
 from pathlib import Path
 
 from tools import GROUPS, TOOLS, X_URL, GH
@@ -18,6 +19,11 @@ SRC = Path(__file__).resolve().parent
 SITE = "https://aldoraibi.github.io"
 # رمز حساب GoatCounter (عدّاد الزيارات): عنوان اللوحة https://<الرمز>.goatcounter.com
 GC_CODE = "aldoraibi"
+
+
+def asset_v(rel):
+    """بصمة قصيرة لمحتوى الملف تُلحق برابطه، فيحمّل المتصفح النسخة الجديدة فور نشرها."""
+    return hashlib.md5((ROOT / rel).read_bytes()).hexdigest()[:8]
 # قناة يوتيوب (الرابط من يحيى)
 YT_URL = "https://www.youtube.com/@aldoraibi"
 
@@ -176,7 +182,7 @@ def head(lang, title, desc, path_ar, path_en):
 <meta property="og:locale" content="{'ar_SA' if lang == 'ar' else 'en_US'}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/thmanyahsans-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v={asset_v("assets/site.css")}">
 </head>
 <body>
 <a class="skip" href="#main">{u['skip']}</a>
@@ -214,7 +220,7 @@ def footer(lang):
     </nav>
   </div>
 </footer>
-<script src="/assets/site.js" defer data-gc-code="{GC_CODE}"></script>
+<script src="/assets/site.js?v={asset_v("assets/site.js")}" defer data-gc-code="{GC_CODE}"></script>
 </body>
 </html>
 """
