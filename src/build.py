@@ -131,11 +131,6 @@ P_ICONS = [
 ]
 
 
-# لون خاص لكل أداة: يلوّن بلاطتها بدرجة خفيفة في الفاتح وأعمق في الليلي
-TINT = {"mizan": "#5e5ce6", "rasid": "#30d158", "maseh": "#ff9f0a", "routine": "#0a84ff", "saaa": "#ff453a",
-        "mulaqqin": "#bf5af2", "fikra": "#ffd60a", "sandooq": "#64d2ff", "nasikh": "#a2845e", "hafiz": "#ff375f"}
-
-
 def prefix(lang):
     return "" if lang == "ar" else "/en"
 
@@ -239,7 +234,7 @@ def grid_tile(lang, slug, dark=False):
     t, u = TOOLS[slug], UI[lang]
     d = t[lang]
     sr = f'<span class="sr"> — {u["stamp"]}</span>' if is_locked(slug) else ""
-    return (f'<li><a class="gtile reveal" style="--t:{TINT.get(slug, "#8e8e93")}" href="{tool_url(lang, slug)}">'
+    return (f'<li><a class="gtile reveal{" alt" if dark else ""}" href="{tool_url(lang, slug)}">'
             f'<h3 class="tname">{e(d["name"])}{sr}</h3><p class="sub">{e(d["tag"])}</p>'
             f'<span class="glink"><span>{u["learn"]}</span>{IC["arrow"]}</span>'
             f'{art(slug, lang)}</a></li>')
@@ -259,7 +254,7 @@ def feature(lang, slug, tone):
     if t.get("download"):
         btns += (f'<a class="btn btn-ghost" href="{t["download"]}" data-gc="download-{slug}">'
                  f'{IC["down"]}<span>{u["get"]}</span></a>')
-    return (f'<section class="feature" style="--t:{TINT.get(slug, "#8e8e93")}" data-scroll aria-labelledby="f-{slug}"><div class="wrap ftext">'
+    return (f'<section class="feature {tone}" data-scroll aria-labelledby="f-{slug}"><div class="wrap ftext">'
             f'<h2 class="tname" id="f-{slug}">{e(d["name"])}</h2><p class="sub">{e(d["tag"])}</p>'
             f'<div class="ctas">{btns}</div></div>{art(slug, lang, stamp=False)}</section>')
 
@@ -286,11 +281,11 @@ def page_home(lang):
     slugs = all_slugs()
     open_slugs = [s for s in slugs if not is_locked(s)]
     next_slugs = [s for s in slugs if is_locked(s)]
-    tones = ["dark", "gray", ""]
+    tones = ["", "alt"]
     words = u["statement"]
     stmt_label = " ".join(words)
     stmt = "".join(f'<span style="--i:{i};--n:{len(words)}">{e(w)}</span> ' for i, w in enumerate(words))
-    feats = "\n".join(feature(lang, s, tones[i % 3]) for i, s in enumerate(open_slugs))
+    feats = "\n".join(feature(lang, s, tones[i % 2]) for i, s in enumerate(open_slugs))
     principles = "".join(
         f'<div class="principle reveal">{P_ICONS[i + 1]}<h3>{e(h)}</h3><p>{e(p)}</p></div>'
         for i, (h, p) in enumerate(u["p"]))
@@ -384,7 +379,6 @@ def page_tool(lang, slug):
     d = t[lang]
     path_ar, path_en = tool_url("ar", slug), tool_url("en", slug)
     st = t["status"]
-    tint = TINT.get(slug, "#8e8e93")
 
     # خيارات النسخة (بطاقات اختيار): التطبيق المحمّل، ونسخة الويب
     opts = []
@@ -427,7 +421,7 @@ def page_tool(lang, slug):
     for i, f in enumerate(d["feats"]):
         slides.append(f'<div class="slide slide-text"><span class="num">{i + 1:02d}</span><p>{e(f)}</p></div>')
     dots = "".join(f'<button type="button" class="dot" aria-label="{i + 1}"></button>' for i in range(len(slides)))
-    gallery = (f'<div class="gallery js-gallery" style="--t:{tint}">'
+    gallery = (f'<div class="gallery js-gallery">'
                f'<div class="slides" tabindex="0">{"".join(slides)}</div>'
                f'<button type="button" class="gnav-btn prev" aria-label="{B["prev"]}">{IC["back"]}</button>'
                f'<button type="button" class="gnav-btn next" aria-label="{B["next"]}">{IC["arrow"]}</button>'
@@ -488,7 +482,7 @@ def page_tool(lang, slug):
   <div class="buy-media">{gallery}</div>
   <div class="buy-steps">{''.join(steps)}</div>
 </section>
-<section class="summary" style="--t:{tint}">
+<section class="summary">
   <div class="wide summary-in">
     <div><h2 class="h2">{e(B['ready'].format(d['name']))}</h2><p class="sub muted">{e(d['tag'])}</p></div>
     <div class="summary-cta"><p class="buy-price">{B['free']}</p>{cta}<div class="share-wrap">{share_row(lang, slug)}</div></div>

@@ -26,7 +26,6 @@
   --nav-bg:rgba(250,250,252,.8);
   --lnav-bg:rgba(255,255,255,.72);
   --shadow:rgba(0,0,0,.18);
-  --tint:13%;
   --r-tile:28px;
   --r-card:18px;
   --max:1024px;
@@ -37,18 +36,18 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#000000;--alt:#161617;--contrast:#1d1d1f;--contrast-ink:#f5f5f7;--contrast-ink-2:#a1a1a6;
+    --bg:#000000;--alt:#1d1d1f;--contrast:#1d1d1f;--contrast-ink:#f5f5f7;--contrast-ink-2:#a1a1a6;
     --card:#1d1d1f;--ink:#f5f5f7;--ink-2:#a1a1a6;--ink-3:#86868b;--line:#424245;
     --link:#2997ff;--stamp:#ff453a;--stamp-bg:rgba(0,0,0,.85);
-    --nav-bg:rgba(22,22,23,.8);--lnav-bg:rgba(22,22,23,.72);--shadow:rgba(0,0,0,.6);--tint:24%;
+    --nav-bg:rgba(22,22,23,.8);--lnav-bg:rgba(22,22,23,.72);--shadow:rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#000000;--alt:#161617;--contrast:#1d1d1f;--contrast-ink:#f5f5f7;--contrast-ink-2:#a1a1a6;
+  --bg:#000000;--alt:#1d1d1f;--contrast:#1d1d1f;--contrast-ink:#f5f5f7;--contrast-ink-2:#a1a1a6;
   --card:#1d1d1f;--ink:#f5f5f7;--ink-2:#a1a1a6;--ink-3:#86868b;--line:#424245;
   --link:#2997ff;--stamp:#ff453a;--stamp-bg:rgba(0,0,0,.85);
-  --nav-bg:rgba(22,22,23,.8);--lnav-bg:rgba(22,22,23,.72);--shadow:rgba(0,0,0,.6);--tint:24%;
+  --nav-bg:rgba(22,22,23,.8);--lnav-bg:rgba(22,22,23,.72);--shadow:rgba(0,0,0,.6);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -303,11 +302,6 @@ footer{background:var(--alt);color:var(--ink-2);font-size:12px;padding:28px 0 36
 }
 @media (max-width:600px){.hero-scene{height:150vh}.statement-scene{height:180vh}}
 
-/* ——— كل أداة بلونها */
-.feature,.gtile{background:color-mix(in srgb,var(--t,#8e8e93) var(--tint),var(--bg));color:var(--ink)}
-.feature .sub,.gtile .sub{color:var(--ink)}
-.feature .art img{filter:drop-shadow(0 30px 40px color-mix(in srgb,var(--t,#000) 35%,var(--shadow)))}
-
 /* ——— صفحة الأداة بأسلوب صفحة الشراء: عنوان، ثم معرض ثابت بجانب خطوات الاختيار */
 .buy-head{padding:44px 0 8px;text-align:start}
 .eyebrow-new{color:#bf4800;font-size:15px;font-weight:500}
@@ -318,11 +312,11 @@ footer{background:var(--alt);color:var(--ink-2);font-size:12px;padding:28px 0 36
 .buy-price{font-size:17px;font-weight:700;margin-top:10px}
 .buy{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:56px;align-items:start;padding:28px 0 96px}
 .buy-media{position:sticky;top:116px;min-width:0}
-.gallery{position:relative;background:color-mix(in srgb,var(--t) var(--tint),var(--alt));border-radius:var(--r-tile);overflow:hidden;aspect-ratio:4/3.4}
+.gallery{position:relative;background:var(--alt);border-radius:var(--r-tile);overflow:hidden;aspect-ratio:4/3.4}
 .slides{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}
 .slides::-webkit-scrollbar{display:none}
 .slide{flex:0 0 100%;height:100%;scroll-snap-align:center;display:grid;place-items:center;padding:48px}
-.slide-icon img{width:min(300px,55%);height:auto;filter:drop-shadow(0 30px 40px color-mix(in srgb,var(--t) 35%,var(--shadow)))}
+.slide-icon img{width:min(300px,55%);height:auto;filter:drop-shadow(0 30px 40px var(--shadow))}
 .slide-text{align-content:center;text-align:center;gap:16px}
 .slide-text .num{font-size:15px;color:var(--ink-2);font-weight:500}
 .slide-text p{font-size:clamp(26px,3vw,40px);line-height:1.2;font-weight:700;max-width:520px}
@@ -387,6 +381,8 @@ footer{background:var(--alt);color:var(--ink-2);font-size:12px;padding:28px 0 36
   .summary-cta{justify-items:start}.summary .share-row{justify-content:flex-start}
 }
 
-/* المعرض في الليلي: لون الأداة أخف حتى لا يصير الأصفر زيتياً */
-:root[data-theme="dark"] .gallery{background:var(--alt)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gallery{background:var(--alt)}}
+/* ——— أبيض ورمادي فقط، كما في موقع آبل */
+.feature{background:var(--bg)}
+.feature.alt,.gtile{background:var(--alt);color:var(--ink)}
+.gtile.alt{background:var(--bg)}
+.feature .sub,.gtile .sub{color:var(--ink)}
