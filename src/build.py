@@ -26,6 +26,8 @@ def asset_v(rel):
     return hashlib.md5((ROOT / rel).read_bytes()).hexdigest()[:8]
 # قناة يوتيوب (الرابط من يحيى)
 YT_URL = "https://www.youtube.com/@aldoraibi"
+IG_URL = "https://www.instagram.com/yahya_aldoraibi"
+TT_URL = "https://www.tiktok.com/@aldoraibi"
 
 
 def inline_svg(name):
@@ -71,7 +73,7 @@ UI = {
         "install": "التثبيت على الماك", "credit": "شكر وتقدير", "others": "أدوات أخرى",
         "by": "مطوّر بواسطة", "nf_title": "الصفحة غير موجودة", "nf_body": "ربما تغيّر الرابط. كل الأدوات في الصفحة الرئيسية.",
         "home": "الرئيسية", "icon_alt": "أيقونة {}",
-        "yt": "تابع القناة في يوتيوب", "theme": "المظهر", "theme_auto": "حسب الجهاز", "theme_light": "فاتح", "theme_dark": "ليلي",
+        "yt": "تابع القناة في يوتيوب", "follow": "تابعني", "theme": "المظهر", "theme_auto": "حسب الجهاز", "theme_light": "فاتح", "theme_dark": "ليلي",
         "statement": ["أدوات", "صغيرة.", "تعمل", "دون", "اتصال.", "وبالعربية", "أولاً."], "learn": "اعرف المزيد", "get": "حمّل", "next_h": "في الطريق", "next_p": "أدوات أستخدمها يومياً، وتُفتح للتحميل قريباً.",
         "share_h": "تعرف أحداً يحتاجها؟", "nav_tools": "الأدوات", "nav_next": "قريباً", "nav_share": "شارك", "nav_how": "كيف أبنيها",
     },
@@ -106,7 +108,7 @@ UI = {
         "install": "Installing on Mac", "credit": "Credits", "others": "More tools",
         "by": "Developed by", "nf_title": "Page not found", "nf_body": "The link may have changed. Every tool is on the home page.",
         "home": "Home", "icon_alt": "{} icon",
-        "yt": "Follow on YouTube", "theme": "Appearance", "theme_auto": "Match device", "theme_light": "Light", "theme_dark": "Dark",
+        "yt": "Follow on YouTube", "follow": "Follow me", "theme": "Appearance", "theme_auto": "Match device", "theme_light": "Light", "theme_dark": "Dark",
         "statement": ["Small", "tools.", "Working", "offline.", "Arabic", "first."], "learn": "Learn more", "get": "Download", "next_h": "On the way", "next_p": "Tools I use every day, opening for download soon.",
         "share_h": "Know someone who needs it?", "nav_tools": "Tools", "nav_next": "Coming soon", "nav_share": "Share", "nav_how": "How I build",
     },
@@ -125,6 +127,11 @@ IC = {
     "code": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "lang": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>',
     "play": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1.5" y="3.5" width="13" height="9" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.8 6.2v3.6L9.9 8z" fill="currentColor"/></svg>',
+    "x": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3 3 13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+    "yt": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1.5" y="3.5" width="13" height="9" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.8 6.2v3.6L9.9 8z" fill="currentColor"/></svg>',
+    "ig": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="2" width="12" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2.8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="11.4" cy="4.6" r=".9" fill="currentColor"/></svg>',
+    "tt": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M9 2v8.2a2.3 2.3 0 1 1-2.3-2.3M9 2c.3 2 1.6 3.2 3.5 3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "gh": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "at": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.6 8v1.1a1.9 1.9 0 0 0 3.8 0V8A6.4 6.4 0 1 0 12 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
 }
 P_ICONS = [
@@ -207,6 +214,14 @@ def gnav(lang, path_ar, path_en):
             f'</div></nav>\n')
 
 
+SOCIAL = [("x", "X", "X_URL"), ("yt", "YouTube", "YT_URL"), ("ig", "Instagram", "IG_URL"), ("tt", "TikTok", "TT_URL"), ("gh", "GitHub", "GH")]
+
+
+def social_links(lang):
+    urls = {"X_URL": X_URL, "YT_URL": YT_URL, "IG_URL": IG_URL, "TT_URL": TT_URL, "GH": GH}
+    return "".join(f'<a href="{urls[k]}" rel="me" aria-label="{name}" title="{name}">{IC[ic]}<span>{name}</span></a>' for ic, name, k in SOCIAL)
+
+
 def footer(lang):
     u = UI[lang]
     return f"""<footer>
@@ -214,9 +229,7 @@ def footer(lang):
     <div class="credit">{u['by']} {SIG}</div>
     <p class="visits" hidden><span>{u['visits']}:</span> <bdi class="visits-n"></bdi></p>
     <nav class="foot-links" aria-label="{'روابط' if lang == 'ar' else 'Links'}">
-      <a href="{X_URL}" rel="me">X</a>
-      <a href="{YT_URL}" rel="me">YouTube</a>
-      <a href="{GH}" rel="me">GitHub</a>
+      {social_links(lang)}
     </nav>
   </div>
 </footer>
@@ -318,10 +331,11 @@ def page_home(lang):
     <div class="ctas">
       <button type="button" class="btn btn-primary js-share" data-gc="share-site" data-title="{e(u['title'])}" data-text="{e(u['share_site_text'])}" data-url="{SITE}{home_url(lang)}" data-copied="{e(u['copied'])}">{IC['share']}<span>{u['share_site']}</span></button>
       <a class="btn btn-ghost" data-gc="x-share-site" href="{e(x_intent(u['share_site_text'], SITE + home_url(lang)))}"><span>{u['share_site_x']}</span></a>
-      <a class="btn btn-ghost" data-gc="youtube" href="{YT_URL}" rel="me">{IC['play']}<span>{u['yt']}</span></a>
       <span class="share-status" role="status" aria-live="polite"></span>
     </div>
     <p class="suggest-link"><a data-gc="suggest" href="{e(x_intent(u['suggest_text']))}">{IC['bulb']}<span>{u['suggest_link']}</span></a></p>
+    <p class="follow-h">{u['follow']}</p>
+    <div class="social">{social_links(lang)}</div>
   </div>
 </section>
 <section class="statement-scene" data-scroll="statement" aria-label="{e(stmt_label)}">
