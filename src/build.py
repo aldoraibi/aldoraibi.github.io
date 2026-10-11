@@ -17,6 +17,9 @@ from tools import GROUPS, TOOLS, X_URL, GH
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(__file__).resolve().parent
 SITE = "https://ydhub.dev"
+MAIL = "hello@ydhub.dev"
+# اسم يحيى بالخط مضمّناً في الصفحة (بدل قناع CSS الثقيل على سفاري)
+CALLIG = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "name-ar.clean.svg"), encoding="utf-8").read().strip()
 # رمز حساب GoatCounter (عدّاد الزيارات): عنوان اللوحة https://<الرمز>.goatcounter.com
 GC_CODE = "aldoraibi"
 
@@ -116,6 +119,7 @@ UI = {
 
 # أيقونات خطية صغيرة (مسارات بسيطة، بلا شعارات شركات)
 IC = {
+    "mail": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "share": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 10V2.5M5 5.2 8 2.2l3 3M4.5 7.5H3.5v6h9v-6h-1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     "chat": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3.5h10v7H7.5L4.5 13v-2.5H3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
     "bulb": '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.2 11.5c0-1.4-2.2-2.3-2.2-4.8a4 4 0 0 1 8 0c0 2.5-2.2 3.4-2.2 4.8zM6.5 13.5h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -206,6 +210,7 @@ def gnav(lang, path_ar, path_en):
     lis = "".join(f'<li><a href="{h}#{a}">{u[k]}</a></li>' for k, a in links)
     return (f'<nav class="gnav" aria-label="{"التنقل" if lang == "ar" else "Navigation"}"><div class="gnav-in wrap">'
             f'<a class="logo" href="{h}" aria-label="{u["home"]}">{LOGO}</a><ul>{lis}</ul>'
+            f'<a class="mail-btn" href="mailto:{MAIL}" data-gc="mail-nav" title="{MAIL}">{IC["mail"]}<span>{"راسلني" if lang == "ar" else "Email me"}</span></a>'
             f'<button type="button" class="theme-btn js-theme" data-l-auto="{u["theme_auto"]}" data-l-light="{u["theme_light"]}" data-l-dark="{u["theme_dark"]}" aria-label="{u["theme"]}: {u["theme_auto"]}" title="{u["theme"]}">'
             f'<svg class="i-auto" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></svg>'
             f'<svg class="i-light" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
@@ -229,6 +234,7 @@ def footer(lang):
     <div class="credit">{u['by']} {SIG}</div>
     <p class="visits" hidden><span>{u['visits']}:</span> <bdi class="visits-n"></bdi></p>
     <nav class="foot-links" aria-label="{'روابط' if lang == 'ar' else 'Links'}">
+      <a class="mail-link" href="mailto:{MAIL}" data-gc="mail-footer" aria-label="{'البريد' if lang == 'ar' else 'Email'}">{IC['mail']}</a>
       {social_links(lang)}
     </nav>
   </div>
@@ -273,9 +279,11 @@ def feature(lang, slug, tone):
     if t.get("download"):
         btns += (f'<a class="btn btn-ghost" href="{t["download"]}" data-gc="download-{slug}">'
                  f'{IC["down"]}<span>{u["get"]}</span></a>')
-    return (f'<section class="feature {tone}" data-scroll aria-labelledby="f-{slug}"><div class="wrap ftext">'
-            f'<h2 class="tname" id="f-{slug}">{e(d["name"])}</h2><p class="sub">{e(d["tag"])}</p>'
-            f'<div class="ctas">{btns}</div></div>{art(slug, lang, stamp=False)}</section>')
+    return (f'<section class="feature {tone}" data-scroll aria-labelledby="f-{slug}">'
+            f'<a class="feature-link" href="{tool_url(lang, slug)}" tabindex="-1" aria-hidden="true"></a><div class="wrap ftext">'
+            f'<h2 class="tname" id="f-{slug}"><a href="{tool_url(lang, slug)}">{e(d["name"])}</a></h2><p class="sub">{e(d["tag"])}</p>'
+            f'<div class="ctas">{btns}</div></div>'
+            f'<a class="art-link" href="{tool_url(lang, slug)}" tabindex="-1" aria-hidden="true">{art(slug, lang, stamp=False)}</a></section>')
 
 
 def name_mark(lang):
@@ -283,7 +291,7 @@ def name_mark(lang):
     u = UI[lang]
     if lang == "ar":
         return (f'<h1 class="name-ar"><span class="sr">{u["name"]}</span>'
-                f'<span class="callig" role="img" aria-label="{u["name"]}"></span></h1>')
+                f'{CALLIG.replace("<svg ", f'<svg class="callig" role="img" aria-label="{u["name"]}" ', 1)}</h1>')
     return f'<h1 class="name-en">{u["name"]}</h1>'
 
 
@@ -309,7 +317,7 @@ def page_home(lang):
         f'<div class="principle reveal">{P_ICONS[i + 1]}<h3>{e(h)}</h3><p>{e(p)}</p></div>'
         for i, (h, p) in enumerate(u["p"]))
     return head(lang, u["title"], u["desc"], "/", "/en/") + gnav(lang, "/", "/en/") + f"""<main id="main">
-<header class="hero-scene" data-scroll="hero">
+<header class="hero-scene" data-scrub="hero">
   <div class="hero-sticky">
     <div class="mark" role="img" aria-label="{'شعار' if lang == 'ar' else 'Logo'} YD">{LOGO}</div>
     <div class="hero-name">{name_mark(lang)}</div>
@@ -334,11 +342,16 @@ def page_home(lang):
       <span class="share-status" role="status" aria-live="polite"></span>
     </div>
     <p class="suggest-link"><a data-gc="suggest" href="{e(x_intent(u['suggest_text']))}">{IC['bulb']}<span>{u['suggest_link']}</span></a></p>
+    <div class="mail-box">
+      <p class="mail-h">{'ملاحظة أو اقتراح؟' if lang == 'ar' else 'Feedback or an idea?'}</p>
+      <a class="btn btn-primary" data-gc="mail" href="mailto:{MAIL}">{IC['mail']}<span>{'راسلني' if lang == 'ar' else 'Email me'}</span></a>
+      <p class="mail-addr"><bdi>{MAIL}</bdi></p>
+    </div>
     <p class="follow-h">{u['follow']}</p>
     <div class="social">{social_links(lang)}</div>
   </div>
 </section>
-<section class="statement-scene" data-scroll="statement" aria-label="{e(stmt_label)}">
+<section class="statement-scene" data-scrub="statement" aria-label="{e(stmt_label)}">
   <div class="statement-sticky"><p class="statement" aria-hidden="true">{stmt}</p></div>
 </section>
 <section class="sec dark" id="how" aria-labelledby="g-principles">

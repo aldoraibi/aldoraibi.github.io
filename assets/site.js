@@ -43,28 +43,54 @@
   });
   paintBtns();
 
-  // ——— مشاهد التمرير: قيمة --p (من 0 إلى 1) لكل عنصر [data-scroll]، والتحريك في CSS
+  // ——— مشاهد الظهور: صنف «in» يُضاف مرة واحدة حين يدخل القسم الشاشة، والحركة كلها انتقالات CSS
+  // (لا حساب مع كل حركة تمرير — أخف على سفاري)
   var scenes = [].slice.call(document.querySelectorAll('[data-scroll]'));
-  if (!reduce && scenes.length) {
-    var ticking = false;
-    var clamp = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
-    var update = function () {
-      ticking = false;
+  if (scenes.length) {
+    if (reduce || !('IntersectionObserver' in window)) {
+      scenes.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var sio = new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); sio.unobserve(en.target); }
+        });
+      }, { threshold: 0.2 });
+      scenes.forEach(function (el) { sio.observe(el); });
+    }
+  }
+
+  // ——— مشهدان مربوطان بالتمرير فقط (الواجهة والعبارة الكبيرة): قيمة --p من 0 إلى 1
+  // نحسبهما وحدهما، وفقط وهما ظاهران، ولا نكتب القيمة إلا إذا تغيّرت
+  var scrubs = [].slice.call(document.querySelectorAll('[data-scrub]'));
+  if (!reduce && scrubs.length) {
+    var seen = scrubs.slice(), sTick = false;
+    if ('IntersectionObserver' in window) {
+      seen = [];
+      var sio2 = new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          var i = seen.indexOf(en.target);
+          if (en.isIntersecting && i < 0) seen.push(en.target);
+          else if (!en.isIntersecting && i > -1) seen.splice(i, 1);
+        });
+        sReq();
+      });
+      scrubs.forEach(function (el) { sio2.observe(el); });
+    }
+    var sUpdate = function () {
+      sTick = false;
       var vh = window.innerHeight;
-      scenes.forEach(function (el) {
+      seen.forEach(function (el) {
         var r = el.getBoundingClientRect();
-        if (r.bottom < -vh || r.top > vh * 2) return;
-        var kind = el.getAttribute('data-scroll'), p;
-        if (kind === 'hero' || kind === 'statement') p = clamp(-r.top / Math.max(1, r.height - vh));
-        else if (kind === 'phero') p = 1 - clamp(-r.top / Math.max(1, r.height));
-        else p = clamp((vh - r.top) / (vh * 0.75));
-        el.style.setProperty('--p', p.toFixed(4));
+        var p = -r.top / Math.max(1, r.height - vh);
+        p = p < 0 ? 0 : p > 1 ? 1 : p;
+        var v = p.toFixed(3);
+        if (el._p !== v) { el._p = v; el.style.setProperty('--p', v); }
       });
     };
-    var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    update();
+    var sReq = function () { if (!sTick) { sTick = true; requestAnimationFrame(sUpdate); } };
+    window.addEventListener('scroll', sReq, { passive: true });
+    window.addEventListener('resize', sReq);
+    sUpdate();
   }
 
   // ——— معرض صفحة الأداة: أسهم ونقاط فوق شرائح قابلة للسحب
