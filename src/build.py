@@ -16,7 +16,7 @@ from tools import GROUPS, TOOLS, X_URL, GH
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(__file__).resolve().parent
-SITE = "https://aldoraibi.github.io"
+SITE = "https://ydhub.dev"
 # رمز حساب GoatCounter (عدّاد الزيارات): عنوان اللوحة https://<الرمز>.goatcounter.com
 GC_CODE = "aldoraibi"
 

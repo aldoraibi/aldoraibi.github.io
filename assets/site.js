@@ -99,7 +99,7 @@
 
   // ——— عدّاد الزيارات: طلب صغير إلى GoatCounter (بلا كوكيز)، على الموقع المنشور فقط
   var code = me && me.getAttribute('data-gc-code');
-  var live = location.hostname === 'aldoraibi.github.io';
+  var live = location.hostname === 'ydhub.dev' || location.hostname === 'aldoraibi.github.io';
   var base = code ? 'https://' + code + '.goatcounter.com' : '';
   function send(path, isEvent, title) {
     if (!base || !live || navigator.webdriver) return;

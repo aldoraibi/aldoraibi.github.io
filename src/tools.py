@@ -51,7 +51,7 @@ TOOLS = {
         "status": "available",
         "download": f"{GH}/mizan/releases/latest/download/Mizan.zip",
         "file": "Mizan.zip",
-        "page": "https://aldoraibi.github.io/mizan/",
+        "page": "https://ydhub.dev/mizan/",
         "source": f"{GH}/mizan",
         "ar": {
             "name": "ميزان",
@@ -245,7 +245,7 @@ TOOLS = {
         "status": "available",
         "download": f"{GH}/maseh/releases/latest/download/Maseh.zip",
         "file": "Maseh.zip",
-        "page": "https://aldoraibi.github.io/maseh/",
+        "page": "https://ydhub.dev/maseh/",
         "source": f"{GH}/maseh",
         "ar": {
             "name": "الماسح",
@@ -300,7 +300,7 @@ TOOLS = {
         # التحميل مقفل مؤقتاً (بطلب يحيى): الماسح وميزان فقط لهما رابط تحميل في الموقع الآن
         "download": None,
         "file": "Mulaqqin-mac.zip",
-        "try": "https://aldoraibi.github.io/mulaqqin/",
+        "try": "https://ydhub.dev/mulaqqin/",
         "source": None,
         "ar": {
             "name": "الملقّن العربي",
@@ -351,8 +351,8 @@ TOOLS = {
         "icon": "fikra.webp",
         "status": "available",
         "download": None,
-        "try": "https://aldoraibi.github.io/fikra/",
-        "guide": "https://aldoraibi.github.io/fikra/guide/",
+        "try": "https://ydhub.dev/fikra/",
+        "guide": "https://ydhub.dev/fikra/guide/",
         "source": f"{GH}/fikra",
         "ar": {
             "name": "فكرة",
@@ -380,7 +380,7 @@ TOOLS = {
                 "حاسب ويندوز: افتح الرابط في كروم ← أيقونة التثبيت في طرف شريط العنوان.",
                 "مهم: النسخة المثبّتة لها تخزينها الخاص، منفصل عن المتصفح. إن كتبت أفكاراً في المتصفح قبل التثبيت فانقلها بزر «تصدير نسخة» ثم «استيراد» داخل النسخة المثبّتة.",
             ],
-            "extra": [("الربط بالتقويم و«التذكيرات»", '«جدولة» تضيف الفكرة إلى تقويمك، واختصار صغير تنشئه مرة واحدة يرسل كل فكرة إلى «التذكيرات»، ومع «روتين» على الماك تُوزَّع أفكارك على أيامك تلقائياً. الخطوات كاملة في <a href="https://aldoraibi.github.io/fikra/guide/">الدليل</a>.')],
+            "extra": [("الربط بالتقويم و«التذكيرات»", '«جدولة» تضيف الفكرة إلى تقويمك، واختصار صغير تنشئه مرة واحدة يرسل كل فكرة إلى «التذكيرات»، ومع «روتين» على الماك تُوزَّع أفكارك على أيامك تلقائياً. الخطوات كاملة في <a href="https://ydhub.dev/fikra/guide/">الدليل</a>.')],
         },
         "en": {
             "name": "Fikra",
@@ -408,7 +408,7 @@ TOOLS = {
                 "Windows PC: open the link in Chrome → the install icon at the end of the address bar.",
                 "Important: the installed app has its own storage, separate from the browser. If you wrote ideas in the browser before installing, move them with “Export a copy”, then “Import” inside the installed app.",
             ],
-            "extra": [("Calendar & Reminders", '“Schedule” adds an idea to your calendar; a small shortcut you create once sends every idea to Reminders; and with Routine on the Mac, ideas get spread across your days automatically. Step by step in the <a href="https://aldoraibi.github.io/fikra/guide/" hreflang="ar">guide (Arabic)</a>.')],
+            "extra": [("Calendar & Reminders", '“Schedule” adds an idea to your calendar; a small shortcut you create once sends every idea to Reminders; and with Routine on the Mac, ideas get spread across your days automatically. Step by step in the <a href="https://ydhub.dev/fikra/guide/" hreflang="ar">guide (Arabic)</a>.')],
         },
     },
     # ——————————————————————————————— صندوق الأفكار
@@ -417,8 +417,8 @@ TOOLS = {
         "icon": "sandooq.svg",
         "status": "available",
         "download": None,
-        "try": "https://aldoraibi.github.io/fikra/sandooq/",
-        "guide": "https://aldoraibi.github.io/fikra/guide/",
+        "try": "https://ydhub.dev/fikra/sandooq/",
+        "guide": "https://ydhub.dev/fikra/guide/",
         "source": f"{GH}/fikra",
         "ar": {
             "name": "صندوق الأفكار",
