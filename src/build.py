@@ -148,6 +148,31 @@ P_ICONS = [
 ]
 
 
+# فيديوهات الشروح (من قناة يوتيوب @aldoraibi) — الأحدث أولاً
+VIDEOS = [
+    {"id": "2oq8EXh2c_o", "vertical": False,
+     "ar": {"title": "١٠ خطوات تخلّي كلود يبني لك تطبيق ماك",
+            "text": "بنيت تطبيق «جزيرة» للماك من الصفر بالنقاش مع كلود، بدون ما أكتب سطر كود. أوريك الطريقة خطوة بخطوة: من الفكرة، للعصف الذهني، للتنفيذ، لمراجعة الكود."},
+     "en": {"title": "10 steps to have Claude build you a Mac app",
+            "text": "I built the Mac app “Jazira” from scratch by talking with Claude, without writing a line of code. Step by step: from the idea, to brainstorming, to building, to reviewing the code."}},
+    {"id": "08BLolbcNWk", "vertical": True,
+     "ar": {"title": "سويت الفيديو كامل بالذكاء الاصطناعي",
+            "text": "الصوت صوتي مستنسخ، والمونتاج كامل بواسطة كلود. فيديو قصير يوريك وش ممكن تسوي بالذكاء الاصطناعي اليوم."},
+     "en": {"title": "I made this whole video with AI",
+            "text": "The voice is my cloned voice and the whole edit was done by Claude. A short look at what AI can do today."}},
+]
+VIDEOS_UI = {
+    "ar": {"nav": "الشروح", "title": "الشروح", "sub": "فيديوهات قصيرة أشرح فيها أدواتي، وكيف أبنيها مع الذكاء الاصطناعي.",
+           "play": "شغّل الفيديو", "watch": "شاهد على يوتيوب", "more": "كل الفيديوهات في القناة", "page_title": "الشروح — يحيى الدريبي"},
+    "en": {"nav": "Tutorials", "title": "Tutorials", "sub": "Short videos explaining my tools, and how I build them with AI.",
+           "play": "Play video", "watch": "Watch on YouTube", "more": "All videos on the channel", "page_title": "Tutorials — Yahya Aldoraibi"},
+}
+
+
+def videos_url(lang):
+    return f"{prefix(lang)}/videos/"
+
+
 def prefix(lang):
     return "" if lang == "ar" else "/en"
 
@@ -208,6 +233,7 @@ def gnav(lang, path_ar, path_en):
     href = path_en if other == "en" else path_ar
     links = [("nav_tools", "tools"), ("nav_next", "next"), ("nav_share", "share"), ("nav_how", "how")]
     lis = "".join(f'<li><a href="{h}#{a}">{u[k]}</a></li>' for k, a in links)
+    lis += f'<li><a href="{videos_url(lang)}">{VIDEOS_UI[lang]["nav"]}</a></li>'
     return (f'<nav class="gnav" aria-label="{"التنقل" if lang == "ar" else "Navigation"}"><div class="gnav-in wrap">'
             f'<a class="logo" href="{h}" aria-label="{u["home"]}">{LOGO}</a><ul>{lis}</ul>'
             f'<a class="mail-btn" href="mailto:{MAIL}" data-gc="mail-nav" title="{MAIL}">{IC["mail"]}<span>{"راسلني" if lang == "ar" else "Email me"}</span></a>'
@@ -526,6 +552,39 @@ def page_tool(lang, slug):
 """ + footer(lang)
 
 
+def page_videos(lang):
+    """صفحة الشروح: فيديو وشرحه جنباً إلى جنب، والجهة تتبادل صفاً بعد صف."""
+    V = VIDEOS_UI[lang]
+    rows = []
+    for i, v in enumerate(VIDEOS):
+        d = v[lang]
+        thumb = f"https://i.ytimg.com/vi/{v['id']}/{'oardefault' if v['vertical'] else 'maxresdefault'}.jpg"
+        watch = f"https://www.youtube.com/watch?v={v['id']}" if not v["vertical"] else f"https://www.youtube.com/shorts/{v['id']}"
+        media = (f'<div class="vmedia{" is-vertical" if v["vertical"] else ""}">'
+                 f'<button type="button" class="vplay js-vplay" data-id="{v["id"]}" data-gc="video-{v["id"]}" aria-label="{V["play"]}: {e(d["title"])}">'
+                 f'<img src="{thumb}" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/{v["id"]}/hqdefault.jpg\'">'
+                 f'<span class="vbtn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>'
+                 f'</button></div>')
+        text = (f'<div class="vtext"><span class="vnum">{i + 1:02d}</span><h2 class="vtitle">{e(d["title"])}</h2>'
+                f'<p class="vdesc">{e(d["text"])}</p>'
+                f'<a class="vlink" href="{watch}" data-gc="yt-{v["id"]}">{IC["yt"]}<span>{V["watch"]}</span></a></div>')
+        rows.append(f'<article class="vrow{" flip" if i % 2 else ""} reveal">{media}{text}</article>')
+    path_ar, path_en = videos_url("ar"), videos_url("en")
+    return head(lang, V["page_title"], V["sub"], path_ar, path_en) + gnav(lang, path_ar, path_en) + f"""<main id="main">
+<section class="vhead wrap">
+  <h1 class="vh1">{V['title']}</h1>
+  <p class="sub muted">{V['sub']}</p>
+</section>
+<section class="vlist wide">
+{''.join(rows)}
+</section>
+<section class="vmore wrap">
+  <a class="btn btn-ghost" href="{YT_URL}" data-gc="yt-channel">{IC['yt']}<span>{V['more']}</span></a>
+</section>
+</main>
+""" + footer(lang)
+
+
 def page_404():
     u = UI["ar"]
     return head("ar", u["nf_title"], u["nf_body"], "/404.html", "/404.html") + gnav("ar", "/", "/en/") + f"""<main id="main">
@@ -554,6 +613,8 @@ def main():
         out.append(write(f"{prefix(lang).lstrip('/')}/index.html".lstrip("/"), page_home(lang)))
         for slug in TOOLS:
             out.append(write(f"{prefix(lang).lstrip('/')}/tools/{slug}/index.html".lstrip("/"), page_tool(lang, slug)))
+    for lang in ("ar", "en"):
+        out.append(write(f"{prefix(lang).lstrip('/')}/videos/index.html".lstrip("/"), page_videos(lang)))
     out.append(write("404.html", page_404()))
     print(f"{len(out)} صفحة")
 

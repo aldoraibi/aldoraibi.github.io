@@ -93,6 +93,21 @@
     sUpdate();
   }
 
+  // ——— الشروح: صورة الفيديو تتحول لمشغّل يوتيوب عند الضغط فقط
+  [].forEach.call(document.querySelectorAll('.js-vplay'), function (btn) {
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + btn.getAttribute('data-id') + '?autoplay=1&rel=0&playsinline=1';
+      f.title = btn.getAttribute('aria-label') || 'YouTube';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      f.allowFullscreen = true;
+      f.className = 'vframe';
+      // يوتيوب يرفض التشغيل بدون مصدر الطلب (الخطأ 153)، والموقع يمنعه عموماً، فنسمح به لهذا المشغّل فقط
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      btn.parentNode.replaceChild(f, btn);
+    });
+  });
+
   // ——— معرض صفحة الأداة: أسهم ونقاط فوق شرائح قابلة للسحب
   document.querySelectorAll('.js-gallery').forEach(function (g) {
     var track = g.querySelector('.slides'), slides = track.children, dots = g.querySelectorAll('.dot');
