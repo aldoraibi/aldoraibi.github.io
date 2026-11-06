@@ -94,6 +94,43 @@
   }
 
   // ——— الشروح: صورة الفيديو تتحول لمشغّل يوتيوب عند الضغط فقط
+  // صفحة الفيديوهات: أي فيديو موعد نشره ما جا يختفي، والعدّاد في التبويب يتحدّث
+  (function () {
+    var now = Date.now();
+    [].forEach.call(document.querySelectorAll('.vc[data-at]'), function (c) {
+      var t = Date.parse(c.getAttribute('data-at'));
+      if (t && t > now) c.remove();
+    });
+    [].forEach.call(document.querySelectorAll('.vtab'), function (tab) {
+      var panel = document.getElementById(tab.getAttribute('aria-controls'));
+      var n = panel ? panel.querySelectorAll('.vc').length : 0;
+      var badge = tab.querySelector('.vtn'); if (badge) badge.textContent = document.documentElement.lang === 'ar' ? n.toLocaleString('ar-SA') : n;
+      if (!n) { tab.remove(); if (panel) panel.remove(); }
+    });
+    var tabs = [].slice.call(document.querySelectorAll('.vtab'));
+    function show(key) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-tab') === key;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        var p = document.getElementById(t.getAttribute('aria-controls')); if (p) p.hidden = !on;
+      });
+      [].forEach.call(document.querySelectorAll('.vpanel video'), function (v) { if (v.closest('.vpanel').hidden) v.pause(); });
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.getAttribute('data-tab')); try { history.replaceState(null, '', '#' + t.getAttribute('data-tab')); } catch (e) {} }); });
+    var h = (location.hash || '').slice(1);
+    if (tabs.length) show(tabs.some(function (t) { return t.getAttribute('data-tab') === h; }) ? h : tabs[0].getAttribute('data-tab'));
+  })();
+  [].forEach.call(document.querySelectorAll('.js-vfile'), function (btn) {
+    btn.addEventListener('click', function () {
+      [].forEach.call(document.querySelectorAll('.vcm video'), function (v) { v.pause(); });
+      var v = document.createElement('video');
+      v.src = btn.getAttribute('data-src'); v.controls = true; v.autoplay = true; v.playsInline = true;
+      v.setAttribute('playsinline', ''); v.preload = 'auto';
+      var img = btn.querySelector('img'); if (img) v.poster = img.src;
+      btn.parentNode.replaceChild(v, btn);
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
+  });
   [].forEach.call(document.querySelectorAll('.js-vplay'), function (btn) {
     btn.addEventListener('click', function () {
       var f = document.createElement('iframe');

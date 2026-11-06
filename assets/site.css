@@ -516,3 +516,29 @@ svg.callig path{fill:currentColor}
   .vrow.flip .vmedia,.vrow.flip .vtext{order:0}
   .vlist{gap:56px}
 }
+
+/* ——— صفحة الفيديوهات: تبويب لكل سلسلة وشبكة كروت عمودية (٦ نوفمبر ٢٠٢٦) */
+.vwrap{padding-bottom:56px}
+.vtabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 2px 18px;justify-content:center;flex-wrap:wrap}
+.vtab{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;background:var(--alt);color:var(--ink);font-size:16px;font-weight:600;white-space:nowrap}
+.vtab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.vtab:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+.vtn{font-size:13px;font-weight:500;opacity:.6}
+.vabout{text-align:center;margin:0 0 26px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:28px 20px}
+.vc{display:flex;flex-direction:column;gap:6px;min-width:0}
+.vc.wide{grid-column:span 2}
+.vcm{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:var(--alt)}
+.vc.wide .vcm{aspect-ratio:16/9}
+.vcm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.vc .vbtn{width:56px;height:56px;margin:-28px 0 0 -28px}
+.vc .vbtn svg{width:24px;height:24px}
+.vcdate{font-size:13px;color:var(--ink-3);margin-top:4px}
+.vct{font-size:17px;line-height:1.4;font-weight:700;margin:0}
+.vcd{font-size:15px;line-height:1.6;color:var(--ink-2);margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media (max-width:600px){
+  .vgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}
+  .vc.wide{grid-column:1/-1}
+  .vct{font-size:15px}.vcd{font-size:13.5px}
+  .vtabs{justify-content:flex-start;flex-wrap:nowrap}
+}

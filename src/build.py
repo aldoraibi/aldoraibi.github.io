@@ -162,10 +162,10 @@ VIDEOS = [
             "text": "The voice is my cloned voice and the whole edit was done by Claude. A short look at what AI can do today."}},
 ]
 VIDEOS_UI = {
-    "ar": {"nav": "الشروح", "title": "الشروح", "sub": "فيديوهات قصيرة أشرح فيها أدواتي، وكيف أبنيها مع الذكاء الاصطناعي.",
-           "play": "شغّل الفيديو", "watch": "شاهد على يوتيوب", "more": "كل الفيديوهات في القناة", "page_title": "الشروح — يحيى الدريبي"},
-    "en": {"nav": "Tutorials", "title": "Tutorials", "sub": "Short videos explaining my tools, and how I build them with AI.",
-           "play": "Play video", "watch": "Watch on YouTube", "more": "All videos on the channel", "page_title": "Tutorials — Yahya Aldoraibi"},
+    "ar": {"nav": "الفيديوهات", "title": "الفيديوهات", "sub": "كل اللي أنشره في المنصات، مرتب حسب السلسلة.",
+           "play": "شغّل الفيديو", "watch": "شاهد على يوتيوب", "more": "كل الفيديوهات في القناة", "page_title": "الفيديوهات — يحيى الدريبي"},
+    "en": {"nav": "Videos", "title": "Videos", "sub": "Everything I post, by series. The clips are in Arabic.",
+           "play": "Play video", "watch": "Watch on YouTube", "more": "All videos on the channel", "page_title": "Videos — Yahya Aldoraibi"},
 }
 
 
@@ -552,31 +552,74 @@ def page_tool(lang, slug):
 """ + footer(lang)
 
 
+SERIES = [
+    ("maloma", {"ar": "معلومة", "en": "Maloma"}, {"ar": "مصطلح واحد من عالم الذكاء الاصطناعي في دقيقة، كل يوم ٩ مساءً.", "en": "One AI term in a minute, every day at 9 pm."}),
+    ("claude", {"ar": "كلود والذكاء الاصطناعي", "en": "Claude & AI"}, {"ar": "طرق استخدام وأخبار تهمك، بدون تعقيد.", "en": "Practical tips and the news that matters."}),
+    ("skills", {"ar": "مهارات", "en": "Skills"}, {"ar": "مهارات مفتوحة المصدر جرّبتها. تأكد من مصدر أي مهارة قبل ما تحمّلها.", "en": "Open-source skills I tried. Check any skill's source before installing it."}),
+    ("lahza", {"ar": "لحظة قهوة", "en": "Coffee Moment"}, {"ar": "معلومة قهوة ببساطة وبأرقام حقيقية.", "en": "One coffee fact, with real numbers."}),
+    ("trend", {"ar": "ترند", "en": "Trending"}, {"ar": "تعليقي على اللي ينتشر.", "en": "My take on what's trending."}),
+    ("youtube", {"ar": "شروح مطوّلة", "en": "Long tutorials"}, {"ar": "شروح أطول على يوتيوب.", "en": "Longer tutorials on YouTube."}),
+]
+
+
+def load_clips():
+    import json
+    p = SRC / "videos.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else []
+
+
+def ar_date(iso, lang):
+    y, m, d = iso[:10].split("-")
+    if lang == "en":
+        return f"{int(d)} {['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][int(m)-1]} {y}"
+    months = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
+    tr = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
+    return f"{str(int(d)).translate(tr)} {months[int(m)-1]}"
+
+
 def page_videos(lang):
-    """صفحة الشروح: فيديو وشرحه جنباً إلى جنب، والجهة تتبادل صفاً بعد صف."""
+    """صفحة الفيديوهات: تبويب لكل سلسلة، وكروت عمودية تشتغل في مكانها. أي فيديو موعده ما جا يختفي لحاله."""
     V = VIDEOS_UI[lang]
-    rows = []
-    for i, v in enumerate(VIDEOS):
-        d = v[lang]
-        thumb = f"https://i.ytimg.com/vi/{v['id']}/{'oardefault' if v['vertical'] else 'maxresdefault'}.jpg"
-        watch = f"https://www.youtube.com/watch?v={v['id']}" if not v["vertical"] else f"https://www.youtube.com/shorts/{v['id']}"
-        media = (f'<div class="vmedia{" is-vertical" if v["vertical"] else ""}">'
-                 f'<button type="button" class="vplay js-vplay" data-id="{v["id"]}" data-gc="video-{v["id"]}" aria-label="{V["play"]}: {e(d["title"])}">'
-                 f'<img src="{thumb}" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/{v["id"]}/hqdefault.jpg\'">'
-                 f'<span class="vbtn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>'
-                 f'</button></div>')
-        text = (f'<div class="vtext"><span class="vnum">{i + 1:02d}</span><h2 class="vtitle">{e(d["title"])}</h2>'
-                f'<p class="vdesc">{e(d["text"])}</p>'
-                f'<a class="vlink" href="{watch}" data-gc="yt-{v["id"]}">{IC["yt"]}<span>{V["watch"]}</span></a></div>')
-        rows.append(f'<article class="vrow{" flip" if i % 2 else ""} reveal">{media}{text}</article>')
+    clips = load_clips()
+    tabs, panels = [], []
+    first = True
+    for key, name, about in SERIES:
+        if key == "youtube":
+            items = VIDEOS
+            if not items:
+                continue
+            cards = []
+            for v in items:
+                d = v[lang]
+                thumb = f"https://i.ytimg.com/vi/{v['id']}/{'oardefault' if v['vertical'] else 'hqdefault'}.jpg"
+                cards.append(f'<article class="vc{" wide" if not v["vertical"] else ""}"><div class="vcm">'
+                             f'<button type="button" class="vplay js-vplay" data-id="{v["id"]}" data-gc="video-{v["id"]}" aria-label="{V["play"]}: {e(d["title"])}">'
+                             f'<img src="{thumb}" alt="" loading="lazy" decoding="async"><span class="vbtn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></button></div>'
+                             f'<h3 class="vct">{e(d["title"])}</h3><p class="vcd">{e(d["text"])}</p></article>')
+        else:
+            items = [c for c in clips if c["series"] == key]
+            if not items:
+                continue
+            cards = []
+            for c in items:
+                cards.append(f'<article class="vc" data-at="{e(c["at"])}"><div class="vcm">'
+                             f'<button type="button" class="vplay js-vfile" data-src="/videos/media/{e(c["id"])}.mp4" data-gc="clip-{e(c["id"])}" aria-label="{V["play"]}: {e(c["title"])}">'
+                             f'<img src="/videos/media/{e(c["id"])}.webp" alt="" loading="lazy" decoding="async"><span class="vbtn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></button></div>'
+                             f'<span class="vcdate">{ar_date(c["at"], lang)}</span><h3 class="vct" dir="rtl" lang="ar">{e(c["title"])}</h3>'
+                             + (f'<p class="vcd" dir="rtl" lang="ar">{e(c["text"])}</p>' if c.get("text") else "") + '</article>')
+        tid = f"vs-{key}"
+        tabs.append(f'<button type="button" role="tab" class="vtab" id="t-{tid}" aria-controls="{tid}" aria-selected="{"true" if first else "false"}" data-tab="{key}">{e(name[lang])}<span class="vtn">{len(items)}</span></button>')
+        panels.append(f'<section role="tabpanel" class="vpanel" id="{tid}" aria-labelledby="t-{tid}"{"" if first else " hidden"}><p class="vabout muted">{e(about[lang])}</p><div class="vgrid">{"".join(cards)}</div></section>')
+        first = False
     path_ar, path_en = videos_url("ar"), videos_url("en")
     return head(lang, V["page_title"], V["sub"], path_ar, path_en) + gnav(lang, path_ar, path_en) + f"""<main id="main">
 <section class="vhead wrap">
   <h1 class="vh1">{V['title']}</h1>
   <p class="sub muted">{V['sub']}</p>
 </section>
-<section class="vlist wide">
-{''.join(rows)}
+<section class="wrap vwrap">
+  <div class="vtabs" role="tablist" aria-label="{V['title']}">{''.join(tabs)}</div>
+  {''.join(panels)}
 </section>
 <section class="vmore wrap">
   <a class="btn btn-ghost" href="{YT_URL}" data-gc="yt-channel">{IC['yt']}<span>{V['more']}</span></a>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs>
+<linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3E4A5E"/><stop offset=".55" stop-color="#1E2430"/><stop offset="1" stop-color="#0E131C"/></linearGradient>
+<filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+<feGaussianBlur in="SourceAlpha" stdDeviation="16" result="b"/>
+<feFlood flood-color="#6EA8FF" flood-opacity=".85"/><feComposite in2="b" operator="in" result="c"/>
+<feMerge><feMergeNode in="c"/><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect x="100" y="90" width="824" height="824" rx="185" fill="url(#g)"/>
+<rect x="100.5" y="90.5" width="823" height="823" rx="185" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="3"/>
+<g filter="url(#glow)" fill="none" stroke="#DCE4F0" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+<path d="M290 470h444v170a110 110 0 0 1-110 110H400a110 110 0 0 1-110-110z"/>
+<path d="M240 470h544"/>
+<path d="M420 400c-20-34 20-58 0-92M512 400c-20-34 20-58 0-92M604 400c-20-34 20-58 0-92"/>
+</g>
+</svg>
