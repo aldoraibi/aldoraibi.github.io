@@ -600,16 +600,28 @@ def page_videos(lang):
             items = [c for c in clips if c["series"] == key]
             if not items:
                 continue
-            cards = []
+            numbered = key in ("maloma", "lahza")
+            def epn(c):
+                m = re.search(r"_(\d+)$", c["id"])
+                return int(m.group(1)) if m else 0
+            # السلاسل المرقّمة بالترتيب مثل قائمة التشغيل (الحلقة ١ أول)، والباقي الأحدث أول
+            items = sorted(items, key=epn) if numbered else sorted(items, key=lambda c: c["at"], reverse=True)
+            tr = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
+            rows = []
             for c in items:
-                cards.append(f'<article class="vc" data-at="{e(c["at"])}"><div class="vcm">'
-                             f'<button type="button" class="vplay js-vfile" data-src="/videos/media/{e(c["id"])}.mp4" data-gc="clip-{e(c["id"])}" aria-label="{V["play"]}: {e(c["title"])}">'
-                             f'<img src="/videos/media/{e(c["id"])}.webp" alt="" loading="lazy" decoding="async"><span class="vbtn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></button></div>'
-                             f'<span class="vcdate">{ar_date(c["at"], lang)}</span><h3 class="vct" dir="rtl" lang="ar">{e(c["title"])}</h3>'
-                             + (f'<p class="vcd" dir="rtl" lang="ar">{e(c["text"])}</p>' if c.get("text") else "") + '</article>')
+                n = epn(c)
+                num = (str(n).translate(tr) if lang == "ar" else str(n)) if numbered else ""
+                rows.append(f'<li class="pli" data-at="{e(c["at"])}"><button type="button" class="plb js-pl" data-src="/videos/media/{e(c["id"])}.mp4" data-poster="/videos/media/{e(c["id"])}.webp" data-gc="clip-{e(c["id"])}" data-title="{e(c["title"])}" data-text="{e(c.get("text") or "")}">'
+                            + (f'<span class="pln">{num}</span>' if numbered else "")
+                            + f'<img src="/videos/media/{e(c["id"])}.webp" alt="" loading="lazy" decoding="async">'
+                            f'<span class="plt"><b dir="rtl" lang="ar">{e(c["title"])}</b><small>{ar_date(c["at"], lang)}</small></span></button></li>')
+            first_c = items[0]
+            cards = [f'<div class="plw"><div class="plp"><div class="vcm plm"><video class="js-plv" controls playsinline preload="none" poster="/videos/media/{e(first_c["id"])}.webp"></video></div>'
+                     f'<h3 class="vct plnow" dir="rtl" lang="ar"></h3><p class="vcd plnd" dir="rtl" lang="ar"></p></div>'
+                     f'<ol class="pll">{"".join(rows)}</ol></div>']
         tid = f"vs-{key}"
         tabs.append(f'<button type="button" role="tab" class="vtab" id="t-{tid}" aria-controls="{tid}" aria-selected="{"true" if first else "false"}" data-tab="{key}">{e(name[lang])}<span class="vtn">{len(items)}</span></button>')
-        panels.append(f'<section role="tabpanel" class="vpanel" id="{tid}" aria-labelledby="t-{tid}"{"" if first else " hidden"}><p class="vabout muted">{e(about[lang])}</p><div class="vgrid">{"".join(cards)}</div></section>')
+        panels.append(f'<section role="tabpanel" class="vpanel" id="{tid}" aria-labelledby="t-{tid}"{"" if first else " hidden"}><p class="vabout muted">{e(about[lang])}</p>{('<div class="vgrid">' + "".join(cards) + '</div>') if key == "youtube" else "".join(cards)}</section>')
         first = False
     path_ar, path_en = videos_url("ar"), videos_url("en")
     return head(lang, V["page_title"], V["sub"], path_ar, path_en) + gnav(lang, path_ar, path_en) + f"""<main id="main">

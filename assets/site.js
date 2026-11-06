@@ -97,13 +97,13 @@
   // صفحة الفيديوهات: أي فيديو موعد نشره ما جا يختفي، والعدّاد في التبويب يتحدّث
   (function () {
     var now = Date.now();
-    [].forEach.call(document.querySelectorAll('.vc[data-at]'), function (c) {
+    [].forEach.call(document.querySelectorAll('.vc[data-at], .pli[data-at]'), function (c) {
       var t = Date.parse(c.getAttribute('data-at'));
       if (t && t > now) c.remove();
     });
     [].forEach.call(document.querySelectorAll('.vtab'), function (tab) {
       var panel = document.getElementById(tab.getAttribute('aria-controls'));
-      var n = panel ? panel.querySelectorAll('.vc').length : 0;
+      var n = panel ? panel.querySelectorAll('.vc, .pli').length : 0;
       var badge = tab.querySelector('.vtn'); if (badge) badge.textContent = document.documentElement.lang === 'ar' ? n.toLocaleString('ar-SA') : n;
       if (!n) { tab.remove(); if (panel) panel.remove(); }
     });
@@ -120,6 +120,24 @@
     var h = (location.hash || '').slice(1);
     if (tabs.length) show(tabs.some(function (t) { return t.getAttribute('data-tab') === h; }) ? h : tabs[0].getAttribute('data-tab'));
   })();
+  // قوائم التشغيل: الضغط على حلقة يشغّلها في المشغّل، ولما تخلص تشتغل اللي بعدها
+  [].forEach.call(document.querySelectorAll('.plw'), function (w) {
+    var v = w.querySelector('.js-plv'), now = w.querySelector('.plnow'), nd = w.querySelector('.plnd');
+    function list() { return [].slice.call(w.querySelectorAll('.pli:not(.gone) .js-pl')); }
+    function pick(b, play) {
+      list().forEach(function (x) { x.removeAttribute('aria-current'); });
+      b.setAttribute('aria-current', 'true');
+      v.src = b.getAttribute('data-src'); v.poster = b.getAttribute('data-poster');
+      now.textContent = b.getAttribute('data-title'); nd.textContent = b.getAttribute('data-text') || '';
+      if (play) { [].forEach.call(document.querySelectorAll('video'), function (o) { if (o !== v) o.pause(); }); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    }
+    list().forEach(function (b) { b.addEventListener('click', function () { pick(b, true); if (innerWidth < 760) w.scrollIntoView({behavior: 'smooth', block: 'start'}); }); });
+    v.addEventListener('ended', function () {
+      var L = list(), i = L.indexOf(w.querySelector('.js-pl[aria-current="true"]'));
+      if (i > -1 && i < L.length - 1) { pick(L[i + 1], true); L[i + 1].scrollIntoView({block: 'nearest'}); }
+    });
+    var L = list(); if (L.length) pick(L[0], false);
+  });
   [].forEach.call(document.querySelectorAll('.js-vfile'), function (btn) {
     btn.addEventListener('click', function () {
       [].forEach.call(document.querySelectorAll('.vcm video'), function (v) { v.pause(); });
