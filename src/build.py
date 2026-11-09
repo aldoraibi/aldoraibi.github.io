@@ -78,7 +78,7 @@ UI = {
         "home": "الرئيسية", "icon_alt": "أيقونة {}",
         "yt": "تابع القناة في يوتيوب", "follow": "تابعني", "theme": "المظهر", "theme_auto": "حسب الجهاز", "theme_light": "فاتح", "theme_dark": "ليلي",
         "statement": ["أدوات", "صغيرة.", "تعمل", "دون", "اتصال.", "وبالعربية", "أولاً."], "learn": "اعرف المزيد", "get": "حمّل", "next_h": "في الطريق", "next_p": "أدوات أستخدمها يومياً، وتُفتح للتحميل قريباً.",
-        "share_h": "تعرف أحداً يحتاجها؟", "nav_tools": "الأدوات", "nav_next": "قريباً", "nav_share": "شارك", "nav_how": "كيف أبنيها",
+        "share_h": "تعرف أحداً يحتاجها؟", "nav_tools": "الأدوات", "nav_next": "قريباً", "nav_share": "شارك", "nav_how": "كيف أبنيها", "nav_skills": "المهارات",
     },
     "en": {
         "dir": "ltr", "name": "Yahya Aldoraibi",
@@ -113,7 +113,7 @@ UI = {
         "home": "Home", "icon_alt": "{} icon",
         "yt": "Follow on YouTube", "follow": "Follow me", "theme": "Appearance", "theme_auto": "Match device", "theme_light": "Light", "theme_dark": "Dark",
         "statement": ["Small", "tools.", "Working", "offline.", "Arabic", "first."], "learn": "Learn more", "get": "Download", "next_h": "On the way", "next_p": "Tools I use every day, opening for download soon.",
-        "share_h": "Know someone who needs it?", "nav_tools": "Tools", "nav_next": "Coming soon", "nav_share": "Share", "nav_how": "How I build",
+        "share_h": "Know someone who needs it?", "nav_tools": "Tools", "nav_next": "Coming soon", "nav_share": "Share", "nav_how": "How I build", "nav_skills": "Skills",
     },
 }
 
@@ -167,6 +167,22 @@ VIDEOS_UI = {
     "en": {"nav": "Videos", "title": "Videos", "sub": "Everything I post, by series. The clips are in Arabic.",
            "play": "Play video", "watch": "Watch on YouTube", "more": "All videos on the channel", "page_title": "Videos — Yahya Aldoraibi"},
 }
+
+
+SKILLS_UI = {
+    "ar": {"title": "المهارات", "page_title": "المهارات — يحيى الدريبي",
+           "sub": "مهارات لكلود وشات جي بي تي سويتها لشغلي، وأنشرها مجاناً.",
+           "warn": "قبل ما تثبّت أي مهارة، من هنا أو من غيري، افتح مستودعها في GitHub وتأكد من محتواه.",
+           "repo": "المستودع في GitHub", "learn": "التثبيت والتحميل"},
+    "en": {"title": "Skills", "page_title": "Skills — Yahya Aldoraibi",
+           "sub": "Skills for Claude and ChatGPT that I built for my own work, shared for free.",
+           "warn": "Before installing any skill — mine or anyone else’s — open its GitHub repository and check what’s inside.",
+           "repo": "Repository on GitHub", "learn": "Install & download"},
+}
+
+
+def skills_url(lang):
+    return f"{prefix(lang)}/skills/"
 
 
 def videos_url(lang):
@@ -233,6 +249,7 @@ def gnav(lang, path_ar, path_en):
     href = path_en if other == "en" else path_ar
     links = [("nav_tools", "tools"), ("nav_next", "next"), ("nav_share", "share"), ("nav_how", "how")]
     lis = "".join(f'<li><a href="{h}#{a}">{u[k]}</a></li>' for k, a in links)
+    lis += f'<li><a href="{skills_url(lang)}">{u["nav_skills"]}</a></li>'
     lis += f'<li><a href="{videos_url(lang)}">{VIDEOS_UI[lang]["nav"]}</a></li>'
     return (f'<nav class="gnav" aria-label="{"التنقل" if lang == "ar" else "Navigation"}"><div class="gnav-in wrap">'
             f'<a class="logo" href="{h}" aria-label="{u["home"]}">{LOGO}</a><ul>{lis}</ul>'
@@ -442,7 +459,7 @@ def page_tool(lang, slug):
     # خيارات النسخة (بطاقات اختيار): التطبيق المحمّل، ونسخة الويب
     opts = []
     if t.get("download"):
-        opts.append({"id": "mac", "label": B["mac"], "sub": t["file"], "href": t["download"],
+        opts.append({"id": "mac", "label": d.get("dl_label", B["mac"]), "sub": t["file"], "href": t["download"],
                      "cta": f'{u["download"]} {t["file"]}', "gc": f"download-{slug}", "icon": "down"})
     if t.get("try"):
         opts.append({"id": "web", "label": B["web"], "sub": B["web_sub"], "href": t["try"],
@@ -466,11 +483,13 @@ def page_tool(lang, slug):
     extra_links = []
     if t.get("page"):
         extra_links.append(f'<a href="{t["page"]}">{IC["ext"]}<span>{u["page"]}</span></a>')
+    if t.get("repo"):
+        extra_links.append(f'<a href="{t["repo"]}" data-gc="repo-{slug}">{IC["code"]}<span>{e(d.get("repo_label", u["source"]))}</span></a>')
     if t.get("guide"):
         extra_links.append(f'<a href="{t["guide"]}"' + (' hreflang="ar"' if lang == "en" else "") + f'>{IC["book"]}<span>{u["guide"]}</span></a>')
     links_html = f'<p class="xlinks">{"".join(extra_links)}</p>' if extra_links else ""
     notes = ""
-    if t.get("download"):
+    if t.get("download") and not t.get("repo"):
         notes += f'<p class="note">{u["direct"]}</p>'
     if d.get("note"):
         notes += f'<p class="note">{e(d["note"])}</p>'
@@ -499,6 +518,9 @@ def page_tool(lang, slug):
         li = "".join(f"<li>{e(s)}</li>" for s in d["install"])
         title = d.get("install_title")
         steps.append(f'<section class="step">{step_head((title, "") if title else B["inst"])}<ol class="steps">{li}</ol></section>')
+    for g_title, g_steps in d.get("install_groups", []):
+        li = "".join(f"<li>{e(s)}</li>" for s in g_steps)
+        steps.append(f'<section class="step">{step_head((g_title, ""))}<ol class="steps">{li}</ol></section>')
     for sec_title, sec_html in d.get("extra", []):
         steps.append(f'<section class="step">{step_head((sec_title, ""))}<p class="step-p">{sec_html}</p></section>')
     if d.get("credit"):
@@ -525,7 +547,7 @@ def page_tool(lang, slug):
                     f'<h3>{e(ds["name"])}</h3><p class="ctag">{e(ds["tag"])}</p><p class="cstate">{state}</p>'
                     f'<a class="btn btn-ghost btn-sm" href="{tool_url(lang, s)}">{u["learn"]}</a>'
                     f'<div class="cchips">{chipsx}</div><ul class="cfeats">{fl}</ul></div>')
-    compare = (f'<section class="sec gray compare-sec" aria-labelledby="s-cmp"><div class="wide">'
+    compare = "" if len(cols) < 2 else (f'<section class="sec gray compare-sec" aria-labelledby="s-cmp"><div class="wide">'
                f'<h2 class="h2 reveal" id="s-cmp">{B["compare"]}</h2>'
                f'<div class="compare" style="--cols:{len(cols)}">{"".join(cols)}</div></div></section>')
 
@@ -640,6 +662,38 @@ def page_videos(lang):
 """ + footer(lang)
 
 
+def page_skills(lang):
+    """صفحة المهارات: كل مهارة ببطاقة، ورابط صفحتها (التثبيت والتحميل) ورابط مستودعها."""
+    S, u = SKILLS_UI[lang], UI[lang]
+    grp = next(g for g in GROUPS if g["id"] == "skills")
+    cards = []
+    for slug in grp["tools"]:
+        t, d = TOOLS[slug], TOOLS[slug][lang]
+        chipsx = "".join(f'<span class="chip">{e(p)}</span>' for p in d["platform"])
+        btns = f'<a class="btn btn-primary" href="{tool_url(lang, slug)}">{S["learn"]}</a>'
+        if t.get("download") and not is_locked(slug):
+            btns += (f'<a class="btn btn-ghost" href="{t["download"]}" data-gc="download-{slug}">'
+                     f'{IC["down"]}<span>{u["get"]} {e(t["file"])}</span></a>')
+        if t.get("repo"):
+            btns += f'<a class="btn btn-ghost" href="{t["repo"]}" data-gc="repo-{slug}">{IC["code"]}<span>{S["repo"]}</span></a>'
+        cards.append(f'<article class="skill-card reveal"><img src="/assets/icons/{t["icon"]}" alt="" width="120" height="120" decoding="async">'
+                     f'<div class="skill-body"><h2 class="h2"><a href="{tool_url(lang, slug)}">{e(d["name"])}</a></h2>'
+                     f'<p class="sub muted">{e(d["tag"])}</p><div class="cchips">{chipsx}</div>'
+                     f'<p class="step-p">{e(d["about"])}</p><div class="ctas">{btns}</div></div></article>')
+    path_ar, path_en = skills_url("ar"), skills_url("en")
+    return head(lang, S["page_title"], S["sub"], path_ar, path_en) + gnav(lang, path_ar, path_en) + f"""<main id="main">
+<section class="vhead wrap">
+  <h1 class="vh1">{S['title']}</h1>
+  <p class="sub muted">{S['sub']}</p>
+</section>
+<section class="wrap skills-list">
+  {''.join(cards)}
+  <p class="note skills-warn">{S['warn']}</p>
+</section>
+</main>
+""" + footer(lang)
+
+
 def page_404():
     u = UI["ar"]
     return head("ar", u["nf_title"], u["nf_body"], "/404.html", "/404.html") + gnav("ar", "/", "/en/") + f"""<main id="main">
@@ -670,6 +724,7 @@ def main():
             out.append(write(f"{prefix(lang).lstrip('/')}/tools/{slug}/index.html".lstrip("/"), page_tool(lang, slug)))
     for lang in ("ar", "en"):
         out.append(write(f"{prefix(lang).lstrip('/')}/videos/index.html".lstrip("/"), page_videos(lang)))
+        out.append(write(f"{prefix(lang).lstrip('/')}/skills/index.html".lstrip("/"), page_skills(lang)))
     out.append(write("404.html", page_404()))
     print(f"{len(out)} صفحة")
 
